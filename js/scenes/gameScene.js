@@ -13,10 +13,10 @@ let gameScene = new Phaser.Class({
     
     
     this.load.image("bg", "images/bg.png");
-    this.load.image("bg2", "images/bg2.png");
-    this.load.image("bg3", "images/bg3.png");
-    this.load.image("bg4", "images/bg4.png");
-    this.load.image("bg5", "images/bg5.png");
+    this.load.image("bg2", "images/bg2 - Copy.png");
+    this.load.image("bg3", "images/bg3 - Copy.png");
+    this.load.image("bg4", "images/bg4 - Copy.png");
+    this.load.image("bg5", "images/bg5 - Copy.png");
 
 
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });

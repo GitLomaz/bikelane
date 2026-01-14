@@ -3,7 +3,7 @@ class BG extends Phaser.GameObjects.Container {
     super(scene, 0, 0)
     scene.add.existing(this);
 
-    this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
+    // this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
 
     this.bg5 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg5').setOrigin(0)
     this.bg4 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg4').setOrigin(0)
@@ -19,34 +19,28 @@ class BG extends Phaser.GameObjects.Container {
     this.sidewalk.setOrigin(0)
 
     scene.anims.create({
-      key: 'walk',
-      frames: 'sidewalk',
-      frameRate: 30,
-      repeat: -1
+        key: 'walk',
+        frames: 'sidewalk',
+        frameRate: 30,
+        repeat: -1
     });
 
     this.sidewalk.play({ key: 'walk' });
 
-    // ---- minimal addition: compute per-layer speeds that re-sync on bg5 loop ----
-    const W5 = scene.textures.get('bg5').getSourceImage().width
-    const W4 = scene.textures.get('bg4').getSourceImage().width
-    const W3 = scene.textures.get('bg3').getSourceImage().width
-    const W2 = scene.textures.get('bg2').getSourceImage().width
+    // ---- NEW (tiny): same % progress per update ----
+    const w5 = scene.textures.get('bg5').getSourceImage().width
+    const w4 = scene.textures.get('bg4').getSourceImage().width
+    const w3 = scene.textures.get('bg3').getSourceImage().width
+    const w2 = scene.textures.get('bg2').getSourceImage().width
 
-    // Your "base" 1/2/4/8 intent (relative wraps during one bg5 wrap)
-    // Round to integers so seams line up when bg5 completes one cycle.
-    const n4 = Math.max(1, Math.round((2 * W5) / W4))
-    const n3 = Math.max(1, Math.round((4 * W5) / W3))
-    const n2 = Math.max(1, Math.round((8 * W5) / W2))
-
-    // Choose a slowest speed (pixels per frame). Keep your old "1" feel.
+    // choose how many pixels bg5 moves per frame (your original "1" feel)
     this.v5 = 1
 
-    // Make others move so that when bg5 moves W5, they move nX*WX (whole wraps)
-    // => vX / v5 = (nX*WX) / W5
-    this.v4 = this.v5 * (n4 * W4) / W5
-    this.v3 = this.v5 * (n3 * W3) / W5
-    this.v2 = this.v5 * (n2 * W2) / W5
+    // same % progress => v / width is constant
+    // so v4 = v5 * (w4/w5), etc.
+    this.v4 = this.v5 * (w4 / w5)
+    this.v3 = this.v5 * (w3 / w5)
+    this.v2 = this.v5 * (w2 / w5)
   }
 
   update() {
