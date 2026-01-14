@@ -16,7 +16,7 @@ class BG extends Phaser.GameObjects.Container {
     scene.anims.create({
         key: 'walk',
         frames: 'sidewalk',
-        frameRate: 150, // 30,
+        frameRate: 30,
         repeat: -1
     });
 
@@ -24,10 +24,10 @@ class BG extends Phaser.GameObjects.Container {
   }
 
   update() {
-    this.bg5.tilePositionX += 1000 / 300;
-    this.bg4.tilePositionX += 2000 / 300;
-    this.bg3.tilePositionX += 3000 / 300;
-    this.bg2.tilePositionX += 4000 / 300;
+    this.bg5.tilePositionX += 1 / 500;
+    this.bg4.tilePositionX += 2 / 500;
+    this.bg3.tilePositionX += 3 / 500;
+    this.bg2.tilePositionX += 4 / 500;
   }
 }
 
