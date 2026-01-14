@@ -34,7 +34,7 @@ class BG extends Phaser.GameObjects.Container {
     const w2 = scene.textures.get('bg2').getSourceImage().width
 
     // choose how many pixels bg5 moves per frame (your original "1" feel)
-    this.v5 = 1
+    this.v5 = 1 / 30
 
     // same % progress => v / width is constant
     // so v4 = v5 * (w4/w5), etc.
