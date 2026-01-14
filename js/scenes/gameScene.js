@@ -33,7 +33,7 @@ let gameScene = new Phaser.Class({
     this.spawnTimer = 0;
     this.spawnInterval = 120; // Spawn an enemy every 120 frames (~2 seconds at 60 FPS)
     this.enemySpeed = 3; // Pixels per frame
-    this.add.text(10, 10, '10')
+    this.add.text(10, 10, '17')
   },
 
   update: function (time) {
