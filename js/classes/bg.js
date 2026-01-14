@@ -3,7 +3,7 @@ class BG extends Phaser.GameObjects.Container {
     super(scene, 0, 0)
     scene.add.existing(this);
 
-    // this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
+    this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
 
     this.bg5 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg5').setOrigin(0)
     this.bg4 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg4').setOrigin(0)
