@@ -24,10 +24,10 @@ class BG extends Phaser.GameObjects.Container {
   }
 
   update() {
-    this.bg5.tilePositionX += 1 / 250;
-    this.bg4.tilePositionX += 2 / 250;
-    this.bg3.tilePositionX += 3 / 250;
-    this.bg2.tilePositionX += 4 / 250;
+    this.bg5.tilePositionX += 1 / 75;
+    this.bg4.tilePositionX += 2 / 75;
+    this.bg3.tilePositionX += 3 / 75;
+    this.bg2.tilePositionX += 4 / 75;
   }
 }
 

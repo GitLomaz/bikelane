@@ -2,7 +2,7 @@ class Enemy extends Phaser.GameObjects.Container {
   constructor(lane = 1) {
     // Define lane Y positions (matching player lanes)
     super(scene, -100, LANE_POSITIONS[lane].y || 300);
-    this.setScale(LANE_POSITIONS[lane].scale)
+    this.setScale(LANE_POSITIONS[lane].scale, LANE_POSITIONS[lane].scale)
     scene.add.existing(this);
     switch (lane) {
       case 1:
@@ -19,7 +19,7 @@ class Enemy extends Phaser.GameObjects.Container {
         const direction = Random.coinFlip()
         if (direction) {
           this.speed = 2
-          this.scaleX = -1
+          this.scaleX = -LANE_POSITIONS[lane].scale
         } else {
           this.speed = 1
         }
