@@ -1,12 +1,8 @@
 class Enemy extends Phaser.GameObjects.Container {
   constructor(lane = 1) {
     // Define lane Y positions (matching player lanes)
-    const lanePositions = {
-      1: 300,
-      2: 400,
-      3: 500
-    };
-    super(scene, -100, lanePositions[lane] || 300);
+    super(scene, -100, LANE_POSITIONS[lane].y || 300);
+    this.setScale(LANE_POSITIONS[lane].scale)
     scene.add.existing(this);
     switch (lane) {
       case 1:
@@ -32,7 +28,7 @@ class Enemy extends Phaser.GameObjects.Container {
       default:
         break;
     }
-    this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, lanePositions[lane])
+    this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
     this.blip.setTintFill(0xFF0000)
     this.image = scene.add.image(0, 0, "player");
     this.image.setTint(0xff0000); // Red color to differentiate from player

@@ -1,6 +1,7 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 200, 400);
+    super(scene, 200, 535);
+    this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
     this.setName("player");
     scene.add.existing(this);
     this.image = scene.add.image(0, 0, "player");
@@ -9,11 +10,6 @@ class Player extends Phaser.GameObjects.Container {
     // Lane system
     this.lane = 2; // 1, 2, or 3
     this.switchingLane = false
-    this.lanePositions = {
-      1: { y: 300, scale: 1 },
-      2: { y: 400, scale: 1 },
-      3: { y: 500, scale: 1 }
-    };
     
     // Movement system
     this.velocity = { x: 0, y: 0 };
@@ -69,7 +65,7 @@ class Player extends Phaser.GameObjects.Container {
       return
     }
     this.switchingLane = true
-    const targetPosition = this.lanePositions[newLane];
+    const targetPosition = LANE_POSITIONS[newLane];
     
     scene.tweens.add({
       targets: this,
