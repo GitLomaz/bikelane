@@ -74,6 +74,12 @@ class Player extends Phaser.GameObjects.Container {
       scaleY: targetPosition.scale,
       duration: 300,
       ease: "Quad.easeInOut",
+      onUpdate: (tween) => {
+      if (tween.progress >= 0.5 && !tween.hasReachedMidpoint) {
+        tween.hasReachedMidpoint = true;
+        this.onLaneSwitchMidpoint(newLane);
+      }
+      },
       onComplete: () => {
       this.switchingLane = false;
       }
@@ -85,8 +91,10 @@ class Player extends Phaser.GameObjects.Container {
       duration: 300,
       ease: "Quad.easeInOut",
     });
-    
-    this.lane = newLane;
+  }
+
+  onLaneSwitchMidpoint(newLane) {
+    this.lane = newLane
   }
 }
 
