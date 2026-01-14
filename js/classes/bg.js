@@ -5,10 +5,15 @@ class BG extends Phaser.GameObjects.Container {
 
     this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
 
-    this.bg5 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg5').setOrigin(0);
-    this.bg4 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg4').setOrigin(0);
-    this.bg3 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg3').setOrigin(0);
-    this.bg2 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg2').setOrigin(0);
+    this.bg5 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg5').setOrigin(0)
+    this.bg4 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg4').setOrigin(0)
+    this.bg3 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg3').setOrigin(0)
+    this.bg2 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg2').setOrigin(0)
+
+    this.bg5.tilePositionX -= GAME_WIDTH / 2
+    this.bg4.tilePositionX -= GAME_WIDTH / 2
+    this.bg3.tilePositionX -= GAME_WIDTH / 2
+    this.bg2.tilePositionX -= GAME_WIDTH / 2
 
     this.sidewalk = scene.add.sprite(0, 497, "sidewalk")
     this.sidewalk.setOrigin(0)
