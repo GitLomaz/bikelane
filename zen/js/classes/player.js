@@ -31,9 +31,6 @@ class Player extends Phaser.GameObjects.Container {
     
     this.setupInput();
     scene.events.on("update", () => this.update());
-
-    this.playerBlip = new Blip(GAME_WIDTH - (this.lane * 30) - 10, 207)
-    this.playerBlip.setTintFill(0x00FF00)
   }
 
   setupInput() {
