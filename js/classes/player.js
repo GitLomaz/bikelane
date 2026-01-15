@@ -73,7 +73,7 @@ class Player extends Phaser.GameObjects.Container {
       scaleX: targetPosition.scale,
       scaleY: targetPosition.scale,
       duration: 300,
-      ease: "Quad.easeInOut",
+      ease: 'Bounce.easeInOut',
       onUpdate: (tween) => {
       if (tween.progress >= 0.5 && !tween.hasReachedMidpoint) {
         tween.hasReachedMidpoint = true;
@@ -89,7 +89,7 @@ class Player extends Phaser.GameObjects.Container {
       targets: this.playerBlip,
       x: GAME_WIDTH - (newLane * 30) - 10,
       duration: 300,
-      ease: "Quad.easeInOut",
+      ease: 'Bounce.easeInOut',
     });
   }
 
