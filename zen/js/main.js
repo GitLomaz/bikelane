@@ -5,12 +5,7 @@ let config = {
   parent: "wrapper",
   // scene: [titleScene, gameScene],
   scene: [gameScene],
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: GAME_WIDTH,
-    height: GAME_HEIGHT
-  }
+  zoom: 2
 };
 
 let game = new Phaser.Game(config);
