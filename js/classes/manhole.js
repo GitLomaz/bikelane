@@ -1,0 +1,14 @@
+class Manhole extends Phaser.GameObjects.Image {
+  constructor() {
+    super(scene, 1500, 622, "blip")
+    scene.add.existing(this)
+    this.setDepth(101)
+  }
+
+  update() {
+    this.x -=13
+    if (this.x < 0) {
+      this.destroy()
+    }
+  }
+}
