@@ -4,8 +4,19 @@ class Player extends Phaser.GameObjects.Container {
     this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
     this.setName("player");
     scene.add.existing(this);
-    this.image = scene.add.image(0, 0, "player");
-    this.add(this.image);
+
+    this.sprite = scene.add.sprite(0, 0, "bike")
+    this.sprite.setOrigin(1)
+
+    scene.anims.create({
+        key: 'bike',
+        frames: 'bike',
+        frameRate: 15,
+        repeat: -1
+    });
+
+    this.sprite.play({ key: 'bike' });
+    this.add(this.sprite)
     
     // Lane system
     this.lane = 2; // 1, 2, or 3
@@ -44,14 +55,14 @@ class Player extends Phaser.GameObjects.Container {
       }
     }
     
-    // // Left/Right movement (smooth)
-    // if (this.keys.left.isDown || this.keys.A.isDown) {
-    //   this.velocity.x = -this.speed;
-    // } else if (this.keys.right.isDown || this.keys.D.isDown) {
-    //   this.velocity.x = this.speed;
-    // } else {
-    //   this.velocity.x = 0;
-    // }
+    // Left/Right movement (smooth)
+    if (this.keys.left.isDown || this.keys.A.isDown) {
+      setSpeedMod(.3)
+    } else if (this.keys.right.isDown || this.keys.D.isDown) {
+      setSpeedMod(1.7)
+    } else {
+      setSpeedMod(1)
+    }
     
     // // Apply horizontal movement
     // this.x += this.velocity.x;

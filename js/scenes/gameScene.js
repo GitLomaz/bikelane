@@ -19,6 +19,7 @@ let gameScene = new Phaser.Class({
     this.load.image("bg5", "images/bg5.png");
 
 
+    this.load.spritesheet('bike', 'images/bike.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
   },
 
@@ -26,7 +27,7 @@ let gameScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     new Radar();
-    new Player();
+    this.player = new Player();
     
     // Enemy spawning system
     this.enemies = [];

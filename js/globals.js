@@ -6,5 +6,6 @@ const LANE_POSITIONS = {
   2: { y: 535, scale: .7 },
   3: { y: 580, scale: .8 }
 };
+let speedMod = 1;
 let scene;
 

@@ -37,6 +37,7 @@ class Enemy extends Phaser.GameObjects.Container {
     this.lane = lane;
     this.width = this.image.displayWidth || 32;
     this.height = this.image.displayHeight || 32;
+    this.baseSpeed = this.speed
   }
 
   update() {
