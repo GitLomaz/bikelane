@@ -1,7 +1,8 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 200, 535);
-    this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
+    super(scene, 300, 600
+    );
+    // this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
     this.setName("player");
     scene.add.existing(this);
 
@@ -42,6 +43,7 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
+    return
     // Lane switching (up/down or w/s)
     if (this.keys.up.isDown || this.keys.W.isDown) {
       if (this.lane > 1) {

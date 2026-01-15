@@ -27,7 +27,7 @@ let gameScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     // new Radar();
-    // this.player = new Player();
+    this.player = new Player();
     // this.manhole = new Manhole();
     
     // Enemy spawning system
