@@ -71,24 +71,14 @@ class BG extends Phaser.GameObjects.Container {
     this.bg4.tilePositionX = this.start4
     this.bg3.tilePositionX = this.start3
     this.bg2.tilePositionX = this.start2
-
-    this.bg5Rough = this.start5
-    this.bg4Rough = this.start4
-    this.bg3Rough = this.start3
-    this.bg2Rough = this.start2
     
   }
 
   update() {
-    this.bg5Rough += this.v5 * speedMod
-    this.bg4Rough += this.v4 * speedMod
-    this.bg3Rough += this.v3 * speedMod
-    this.bg2Rough += this.v2 * speedMod
-
-    this.bg5.tilePositionX = Math.floor(this.bg5Rough)
-    this.bg4.tilePositionX = Math.floor(this.bg4Rough)
-    this.bg3.tilePositionX = Math.floor(this.bg3Rough)
-    this.bg2.tilePositionX = Math.floor(this.bg2Rough)
+    this.bg5.tilePositionX += this.v5 * speedMod
+    this.bg4.tilePositionX += this.v4 * speedMod
+    this.bg3.tilePositionX += this.v3 * speedMod
+    this.bg2.tilePositionX += this.v2 * speedMod
 
     // console.log(this.bg5.tilePositionX + ' ' + this.bg4.tilePositionX + ' ' + this.bg3.tilePositionX + ' ' + this.bg2.tilePositionX)
   }
