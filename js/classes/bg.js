@@ -34,7 +34,7 @@ class BG extends Phaser.GameObjects.Container {
     scene.anims.create({
         key: 'walk',
         frames: 'sidewalk',
-        frameRate: 30,
+        frameRate: 60,
         repeat: -1
     });
 
