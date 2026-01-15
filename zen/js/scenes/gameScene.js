@@ -24,6 +24,7 @@ let gameScene = new Phaser.Class({
   },
 
   create: function () {
+    this.cameras.main.setRoundPixels(true);
     scene = this;
     this.bg = new BG();
     // new Radar();
