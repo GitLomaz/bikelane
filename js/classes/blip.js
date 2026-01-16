@@ -1,14 +1,17 @@
 class Blip extends Phaser.GameObjects.Image {
   constructor(x, y) {
-    super(scene, x, y, "blip")
+    super(scene, 20, y, "blip")
     scene.add.existing(this)
     this.setDepth(101)
   }
 
   ping(y) {
-    y = y * GAME_HEIGHT / GAME_WIDTH // scale width to height
-    y = y / 4 // scale down to 1/4
-    y = y + (GAME_HEIGHT / 4) // shift by 1/4
+    // Map y from range [inputMin, inputMax] to [outputMax, outputMin]
+    const inputMin = -1280
+    const inputMax = 400
+    const outputMin = 0
+    const outputMax = 720
+    y = outputMax - ((y - inputMin) * (outputMax - outputMin)) / (inputMax - inputMin)
     this.y = y
   }
 }

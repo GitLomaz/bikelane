@@ -13,6 +13,8 @@ class Enemy extends Phaser.GameObjects.Container {
       case 2:
           this.x = -GAME_WIDTH;
           this.speed = -3
+          this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
+          this.blip.setTintFill(0xFF0000)
         break;
       case 3:
         this.x = GAME_WIDTH * 3;
@@ -28,8 +30,7 @@ class Enemy extends Phaser.GameObjects.Container {
       default:
         break;
     }
-    this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
-    this.blip.setTintFill(0xFF0000)
+
     this.image = scene.add.image(0, 0, "player");
     this.image.setTint(0xff0000); // Red color to differentiate from player
     this.add(this.image);
@@ -45,10 +46,15 @@ class Enemy extends Phaser.GameObjects.Container {
     
     // Check collision with player
     this.checkCollisionWithPlayer();
-    this.blip.ping(this.x)
+    if(this.blip) {
+      this.blip.ping(this.x)
+    }
+
     
     if (this.x < -GAME_WIDTH * 2) {
-      this.blip.destroy();
+      if (this.blip) {
+        this.blip.destroy();
+      }
       this.destroy();
     }
   }
@@ -69,7 +75,9 @@ class Enemy extends Phaser.GameObjects.Container {
   }
 
   onCollisionWithPlayer() {
-    this.blip.destroy();
+    if(this.blip) {
+      this.blip.destroy()
+    }
     this.destroy();
   }
 }

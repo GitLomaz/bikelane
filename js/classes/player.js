@@ -1,6 +1,6 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 200, 535);
+    super(scene, 350, 535);
     this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
     this.setName("player");
     scene.add.existing(this);
@@ -31,7 +31,7 @@ class Player extends Phaser.GameObjects.Container {
     this.setupInput();
     scene.events.on("update", () => this.update());
 
-    this.playerBlip = new Blip(GAME_WIDTH - (this.lane * 30) - 10, 207)
+    this.playerBlip = new Blip(20, 40)
     this.playerBlip.setTintFill(0x00FF00)
   }
 
@@ -63,12 +63,6 @@ class Player extends Phaser.GameObjects.Container {
     } else {
       setSpeedMod(1)
     }
-    
-    // // Apply horizontal movement
-    // this.x += this.velocity.x;
-    
-    // Clamp position to screen bounds
-    // this.x = Phaser.Math.Clamp(this.x, this.minX, this.maxX);
   }
 
   switchLane(newLane) {
@@ -94,13 +88,6 @@ class Player extends Phaser.GameObjects.Container {
       onComplete: () => {
       this.switchingLane = false;
       }
-    });
-    
-    scene.tweens.add({
-      targets: this.playerBlip,
-      x: GAME_WIDTH - (newLane * 30) - 10,
-      duration: 300,
-      ease: "Quad.easeInOut",
     });
   }
 
