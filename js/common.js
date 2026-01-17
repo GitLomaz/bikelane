@@ -1,33 +1,22 @@
 function setSpeedMod(mod) {
-  console.log(speedMod)
   if (mod === speedMod) {
     return;
   }
+  console.log(speedMod)
   speedMod = mod
   const currentFrame = scene.player.sprite.anims.currentFrame.index - 1;
+  const sidewalkFrame = scene.bg.sidewalk.anims.currentFrame.index - 1;
   if (speedMod === 1) {
     scene.player.sprite.anims.play({ key: "bike", frameRate: 15, startFrame: currentFrame})
+    bikeSpeed = 12;
+    scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60, startFrame: sidewalkFrame})
   } else if (speedMod > 1) {
     scene.player.sprite.anims.play({ key: "bike", frameRate: 25, startFrame: currentFrame})
+    bikeSpeed = 12 * 1.5;
+    scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60 * 1.5, startFrame: sidewalkFrame})
   } else if (speedMod < 1) {
     scene.player.sprite.anims.play({ key: "bike", frameRate: 10, startFrame: currentFrame})
+    bikeSpeed = 12 * .75;
+    scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60 * .75, startFrame: sidewalkFrame})
   }
-  // scene.enemies.forEach(e => {
-  //   if (speedMod === 1) {
-  //     e.speed = e.baseSpeed
-  //     scene.bg.sidewalk
-  //   } else if (speedMod === 1.7) {
-  //     if (e.scaleX > 0) { // Moving Forward
-  //       e.speed = e.speed + 2
-  //     } else {
-  //       e.speed = e.speed - 1
-  //     }
-  //   } else if (speedMod === .3) {
-  //     if (e.scaleX > 0) { // Moving Forward
-  //       e.speed = e.speed - 1
-  //     } else {
-  //       e.speed = e.speed + 2
-  //     }
-  //   }
-  // });
 }

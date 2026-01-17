@@ -6,7 +6,7 @@ class Manhole extends Phaser.GameObjects.Image {
   }
 
   update() {
-    this.x -=13
+    this.x -= bikeSpeed
     if (this.x < 0) {
       this.destroy()
     }

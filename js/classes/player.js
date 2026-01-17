@@ -1,12 +1,12 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 350, 535);
+    super(scene, 350, 505);
     this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
     this.setName("player");
     scene.add.existing(this);
 
     this.sprite = scene.add.sprite(0, 0, "bike")
-    this.sprite.setOrigin(1)
+    this.sprite.setOrigin(0, .5)
 
     scene.anims.create({
         key: 'bike',

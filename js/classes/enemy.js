@@ -7,12 +7,12 @@ class Enemy extends Phaser.GameObjects.Container {
     switch (lane) {
       case 1:
           this.x = GAME_WIDTH * 3;
-          this.speed = 5
+          this.speed = 18
           this.scaleX = -1
         break;
       case 2:
           this.x = -GAME_WIDTH;
-          this.speed = -3
+          this.speed = -18
           this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
           this.blip.setTintFill(0xFF0000)
         break;
@@ -31,8 +31,9 @@ class Enemy extends Phaser.GameObjects.Container {
         break;
     }
 
-    this.image = scene.add.image(0, 0, "player");
-    this.image.setTint(0xff0000); // Red color to differentiate from player
+    this.image = scene.add.image(0, -20, "player");
+    this.image.setTint(0xff0000);
+    this.image.setOrigin(.5, 0)
     this.add(this.image);
     
     this.lane = lane;
@@ -42,7 +43,7 @@ class Enemy extends Phaser.GameObjects.Container {
   }
 
   update() {
-    this.x -= this.speed;
+    this.x -= this.speed + bikeSpeed
     
     // Check collision with player
     this.checkCollisionWithPlayer();
@@ -60,14 +61,13 @@ class Enemy extends Phaser.GameObjects.Container {
   }
 
   checkCollisionWithPlayer() {
-    // This needs to be re-factored to allow for smooth lane transition likely
-    const player = scene.children.getByName("player");
+    const player = scene.player
     if (!player) return;
     if (this.lane === player.lane) {
-      const enemyLeft = this.x - this.width / 2;
-      const enemyRight = this.x + this.width / 2;
-      const playerLeft = player.x - (player.image?.displayWidth || 32) / 2;
-      const playerRight = player.x + (player.image?.displayWidth || 32) / 2;
+      const enemyLeft = this.x - this.width / 2 * Math.abs(this.scaleX);
+      const enemyRight = this.x + this.width / 2 * Math.abs(this.scaleX);
+      const playerLeft = player.x;
+      const playerRight = player.x + player.sprite.displayWidth * player.scaleX;
       if (enemyLeft < playerRight && enemyRight > playerLeft) {
         this.onCollisionWithPlayer();
       }

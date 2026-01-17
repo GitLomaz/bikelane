@@ -32,13 +32,13 @@ class BG extends Phaser.GameObjects.Container {
     this.sidewalk.setOrigin(0)
 
     scene.anims.create({
-        key: 'walk',
+        key: 'sidewalk',
         frames: 'sidewalk',
         frameRate: 60,
         repeat: -1
     });
 
-    this.sidewalk.play({ key: 'walk' });
+    this.sidewalk.play({ key: 'sidewalk' });
 
     // ---- NEW (tiny): same % progress per update ----
     const w5 = scene.textures.get('bg5').getSourceImage().width
