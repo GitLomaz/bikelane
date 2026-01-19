@@ -20,3 +20,17 @@ function setSpeedMod(mod) {
     scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60 * .75, startFrame: sidewalkFrame})
   }
 }
+
+function playWithChain(sprite, startKey, chainKeys = []) {
+  // Don't restart if already playing this start anim
+  if (sprite.anims.currentAnim?.key === startKey && sprite.anims.isPlaying) return;
+
+  // Clear any previous queued chain (important when interrupting)
+  sprite.anims.chain(); // calling with no args clears the chain queue
+
+  // Play start anim
+  sprite.play(startKey);
+
+  // Queue next anim(s)
+  if (chainKeys.length) sprite.chain(chainKeys);
+}
