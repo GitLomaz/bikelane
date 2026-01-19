@@ -2,6 +2,7 @@ class Player extends Phaser.GameObjects.Container {
   constructor() {
     super(scene, 350, 505);
     this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
+    this.speeds = ['slowdown', 'normal', 'sprint']
     this.setName("player");
     scene.add.existing(this);
 
@@ -57,6 +58,20 @@ class Player extends Phaser.GameObjects.Container {
       repeat: 0, 
     });
 
+    scene.anims.create({
+      key: 'hop-one',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 72, end: 85 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    scene.anims.create({
+      key: 'hop-two',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 103, end: 119 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
     this.sprite.play({ key: 'normal' });
     this.add(this.sprite)
     
@@ -80,6 +95,22 @@ class Player extends Phaser.GameObjects.Container {
 
     this.playerBlip = new Blip(20, 40)
     this.playerBlip.setTintFill(0x00FF00)
+
+    this.sprite.on(
+      Phaser.Animations.Events.ANIMATION_COMPLETE,
+      (anim) => {
+        switch (anim.key) {
+          case "hop-one":
+          case "hop-two":
+            this.jumpState = 0
+            this.jumpFrames = 0
+            break;
+        
+          default:
+            break;
+        }
+      }
+    );
   }
 
   setupInput() {
@@ -89,11 +120,12 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
-
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
+      playWithChain(this.sprite, "hop-one", [this.speeds[this.speedState]]);
       this.jumpFrames++
     } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
       console.log("Long jump go!")
+      playWithChain(this.sprite, "hop-two", [this.speeds[this.speedState]]);
       this.jumpState = 2
       this.jumpFrames = 0
     } else if (!this.keys.space.isDown && this.jumpFrames !== 0) {
