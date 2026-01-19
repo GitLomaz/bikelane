@@ -9,18 +9,65 @@ class Player extends Phaser.GameObjects.Container {
     this.sprite.setOrigin(0, .5)
 
     scene.anims.create({
-        key: 'bike',
-        frames: 'bike',
-        frameRate: 15,
-        repeat: -1
+      key: 'normal',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 0, end: 14 }),
+      frameRate: 15,
+      repeat: -1
     });
 
-    this.sprite.play({ key: 'bike' });
+    scene.anims.create({
+      key: 'slowdownStart',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 24, end: 27 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    scene.anims.create({
+      key: 'slowdown',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 28, end: 33 }),
+      frameRate: 15,
+      repeat: -1
+    });
+
+    scene.anims.create({
+      key: 'slowdownEnd',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 34, end: 39 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    scene.anims.create({
+      key: 'sprintStart',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 48, end: 54 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    scene.anims.create({
+      key: 'sprint',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 55, end: 64 }),
+      frameRate: 15,
+      repeat: -1
+    });
+
+    scene.anims.create({
+      key: 'sprintEnd',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 65, end: 71 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    this.sprite.play({ key: 'normal' });
     this.add(this.sprite)
     
     // Lane system
     this.lane = 2; // 1, 2, or 3
     this.switchingLane = false
+
+    this.jumpState = 0 // 0, 1, 2
+    this.jumpFrames = 0
+
+    this.speedState = 1 // 0 slow, 1 normal, 2 fast
     
     // Movement system
     this.velocity = { x: 0, y: 0 };
@@ -37,32 +84,68 @@ class Player extends Phaser.GameObjects.Container {
 
   setupInput() {
     const keys = scene.input.keyboard.createCursorKeys();
-    const wasdKeys = scene.input.keyboard.addKeys('W,A,S,D');
+    const wasdKeys = scene.input.keyboard.addKeys('W,A,S,D, ');
     this.keys = { ...keys, ...wasdKeys };
   }
 
   update() {
-    // Lane switching (up/down or w/s)
-    if (this.keys.up.isDown || this.keys.W.isDown) {
-      if (this.lane > 1) {
-        this.switchLane(this.lane - 1);
+
+    if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
+      this.jumpFrames++
+    } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
+      console.log("Long jump go!")
+      this.jumpState = 2
+      this.jumpFrames = 0
+    } else if (!this.keys.space.isDown && this.jumpFrames !== 0) {
+      console.log("short jump go!")
+      this.jumpState = 1
+      this.jumpFrames = 0     
+    }
+
+    if (this.jumpState === 0) {
+      // Lane switching (up/down or w/s)
+      if (this.keys.up.isDown || this.keys.W.isDown) {
+        if (this.lane > 1) {
+          this.switchLane(this.lane - 1);
+        }
+      }
+      
+      if (this.keys.down.isDown || this.keys.S.isDown) {
+        if (this.lane < 3) {
+          this.switchLane(this.lane + 1);
+        }
+      }
+      
+      // Left/Right movement (smooth)
+      if (this.keys.left.isDown || this.keys.A.isDown) {
+        setSpeedMod(.3)
+        if (this.speedState !== 0) {
+          this.sprite.play('slowdownStart');
+          this.sprite.chain([ 'slowdown' ]);
+          this.speedState = 0
+        }
+      } else if (this.keys.right.isDown || this.keys.D.isDown) {
+        setSpeedMod(1.7)
+        if (this.speedState !== 2) {
+          this.sprite.play('sprintStart');
+          this.sprite.chain([ 'sprint' ]);
+          this.speedState = 2
+        }
+      } else {
+        if (this.speedState === 0) {
+          this.sprite.play({ key: "slowdownEnd"})
+          this.sprite.chain([ 'normal' ]);
+          this.speedState = 1
+        } else if (this.speedState === 2) {
+          this.sprite.play({ key: "sprintEnd"})
+          this.sprite.chain([ 'normal' ]);
+          this.speedState = 1
+        }
+        setSpeedMod(1)
       }
     }
-    
-    if (this.keys.down.isDown || this.keys.S.isDown) {
-      if (this.lane < 3) {
-        this.switchLane(this.lane + 1);
-      }
-    }
-    
-    // Left/Right movement (smooth)
-    if (this.keys.left.isDown || this.keys.A.isDown) {
-      setSpeedMod(.3)
-    } else if (this.keys.right.isDown || this.keys.D.isDown) {
-      setSpeedMod(1.7)
-    } else {
-      setSpeedMod(1)
-    }
+
+
   }
 
   switchLane(newLane) {
