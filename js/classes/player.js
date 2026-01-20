@@ -58,14 +58,21 @@ class Player extends Phaser.GameObjects.Container {
     });
 
     scene.anims.create({
-      key: 'hop-one',
+      key: 'hopOne',
       frames: scene.anims.generateFrameNumbers('bike', { start: 72, end: 85 }),
       frameRate: 15,
       repeat: 0, 
     });
 
     scene.anims.create({
-      key: 'hop-two',
+      key: 'hopTwo',
+      frames: scene.anims.generateFrameNumbers('bike', { start: 96, end: 119 }),
+      frameRate: 15,
+      repeat: 0, 
+    });
+
+    scene.anims.create({
+      key: 'hopTwoShort',
       frames: scene.anims.generateFrameNumbers('bike', { start: 103, end: 119 }),
       frameRate: 15,
       repeat: 0, 
@@ -99,8 +106,8 @@ class Player extends Phaser.GameObjects.Container {
       Phaser.Animations.Events.ANIMATION_COMPLETE,
       (anim) => {
         switch (anim.key) {
-          case "hop-one":
-          case "hop-two":
+          case "hopOne":
+          case "hopTwo":
             this.jumpState = 0
             this.jumpFrames = 0
             break;
@@ -122,13 +129,13 @@ class Player extends Phaser.GameObjects.Container {
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
       switch (this.speedState) {
         case 0:
-          playWithChain(this.sprite, "hop-one", ['slowdownStart', 'slowdown']);
+          playWithChain(this.sprite, "slowdownEnd", ['hopOne', 'slowdownStart', 'slowdown']);
           break;        
         case 1:
-          playWithChain(this.sprite, "hop-one", ['normal']);
+          playWithChain(this.sprite, "hopOne", ['normal']);
           break;
         case 2:
-          playWithChain(this.sprite, "hop-one", ['sprintStart', 'sprint']);
+          playWithChain(this.sprite, "sprintEnd", ['hopOne', 'sprintStart', 'sprint']);
           break;
         default:
           break;
@@ -137,13 +144,13 @@ class Player extends Phaser.GameObjects.Container {
     } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
       switch (this.speedState) {
         case 0:
-          playWithChain(this.sprite, "hop-two", ['slowdownStart', 'slowdown']);
+          playWithChain(this.sprite, "slowdownEnd", ['hopTwo', 'slowdownStart', 'slowdown']);
           break;        
         case 1:
-          playWithChain(this.sprite, "hop-two", ['normal']);
+          playWithChain(this.sprite, "hopTwoShort", ['normal']);
           break;
         case 2:
-          playWithChain(this.sprite, "hop-two", ['sprintStart', 'sprint']);
+          playWithChain(this.sprite, "sprintEnd", ['hopTwo', 'sprintStart', 'sprint']);
           break;
         default:
           break;
