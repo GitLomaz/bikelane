@@ -108,6 +108,7 @@ class Player extends Phaser.GameObjects.Container {
         switch (anim.key) {
           case "hopOne":
           case "hopTwo":
+          case "hopTwoShort":
             this.jumpState = 0
             this.jumpFrames = 0
             break;
@@ -161,7 +162,7 @@ class Player extends Phaser.GameObjects.Container {
       this.jumpState = 1
       this.jumpFrames = 0     
     }
-
+    console.log(this.jumpState)
     if (this.jumpState === 0) {
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
