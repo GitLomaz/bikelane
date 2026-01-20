@@ -127,7 +127,9 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
+    this.jumpFrames
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
+      console.log('hereFirst')
       switch (this.speedState) {
         case 0:
           playWithChain(this.sprite, "slowdownEnd", ['hopOne', 'slowdownStart', 'slowdown']);
@@ -143,6 +145,7 @@ class Player extends Phaser.GameObjects.Container {
       }
       this.jumpFrames++
     } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
+      console.log('here?!?!')
       switch (this.speedState) {
         case 0:
           playWithChain(this.sprite, "slowdownEnd", ['hopTwo', 'slowdownStart', 'slowdown']);
@@ -162,7 +165,7 @@ class Player extends Phaser.GameObjects.Container {
       this.jumpState = 1
       this.jumpFrames = 0     
     }
-    console.log(this.jumpState)
+
     if (this.jumpState === 0) {
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
