@@ -132,29 +132,28 @@ class Player extends Phaser.GameObjects.Container {
       console.log('hereFirst')
       switch (this.speedState) {
         case 0:
-          playWithChain(this.sprite, "slowdownEnd", ['hopOne', 'slowdownStart', 'slowdown']);
+          playWithChain(this.sprite, "hopOne", ['slowdownStart', 'slowdown']);
           break;        
         case 1:
           playWithChain(this.sprite, "hopOne", ['normal']);
           break;
         case 2:
-          playWithChain(this.sprite, "sprintEnd", ['hopOne', 'sprintStart', 'sprint']);
+          playWithChain(this.sprite, "hopOne", ['sprintStart', 'sprint']);
           break;
         default:
           break;
       }
       this.jumpFrames++
     } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
-      console.log('here?!?!')
       switch (this.speedState) {
         case 0:
-          playWithChain(this.sprite, "slowdownEnd", ['hopTwo', 'slowdownStart', 'slowdown']);
+          playWithChain(this.sprite, "hopTwoShort", ['slowdownStart', 'slowdown']);
           break;        
         case 1:
           playWithChain(this.sprite, "hopTwoShort", ['normal']);
           break;
         case 2:
-          playWithChain(this.sprite, "sprintEnd", ['hopTwo', 'sprintStart', 'sprint']);
+          playWithChain(this.sprite, "hopTwoShort", ['sprintStart', 'sprint']);
           break;
         default:
           break;
