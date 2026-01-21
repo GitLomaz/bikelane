@@ -1,6 +1,6 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 350, LANE_POSITIONS[3].y);
+    super(scene, 250, LANE_POSITIONS[3].y);
     this.setScale(LANE_POSITIONS[3].scale, LANE_POSITIONS[3].scale)
     this.setName("player");
     scene.add.existing(this);
