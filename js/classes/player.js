@@ -73,7 +73,7 @@ class Player extends Phaser.GameObjects.Container {
 
     scene.anims.create({
       key: 'hopTwoShort',
-      frames: scene.anims.generateFrameNumbers('bike', { start: 103, end: 119 }),
+      frames: scene.anims.generateFrameNumbers('bike', { frames: [103, 105, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119] }),
       frameRate: 15,
       repeat: 0, 
     });

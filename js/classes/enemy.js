@@ -77,7 +77,7 @@ class Enemy extends Phaser.GameObjects.Container {
       const playerRight = player.x + player.sprite.displayWidth * player.scaleX;
       if (enemyLeft < playerRight && enemyRight > playerLeft) {
         const smallHeights = [78,79,80,81,82,83,106,107,115,116,109,110,111,112,113,114]
-        const MediumHeights = [109,110,111,112,113,114]
+        const MediumHeights = [107,108,109,110,111,112,113,114]
         // check height
         const frame = player.sprite.anims.currentFrame.textureFrame
         switch (this.size) {
