@@ -1,12 +1,12 @@
 class Player extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, 350, 505);
-    this.setScale(LANE_POSITIONS[2].scale, LANE_POSITIONS[2].scale)
+    super(scene, 350, LANE_POSITIONS[3].y);
+    this.setScale(LANE_POSITIONS[3].scale, LANE_POSITIONS[3].scale)
     this.setName("player");
     scene.add.existing(this);
 
     this.sprite = scene.add.sprite(0, 0, "bike")
-    this.sprite.setOrigin(0, .5)
+    this.sprite.setOrigin(0, 1)
 
     scene.anims.create({
       key: 'normal',
@@ -82,7 +82,7 @@ class Player extends Phaser.GameObjects.Container {
     this.add(this.sprite)
     
     // Lane system
-    this.lane = 2; // 1, 2, or 3
+    this.lane = 3; // 1, 2, or 3
     this.switchingLane = false
 
     this.jumpState = 0 // 0, 1, 2
@@ -127,9 +127,7 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
-    this.jumpFrames
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
-      console.log('hereFirst')
       switch (this.speedState) {
         case 0:
           playWithChain(this.sprite, "hopOne", ['slowdownStart', 'slowdown']);
@@ -211,8 +209,6 @@ class Player extends Phaser.GameObjects.Container {
         setSpeedMod(1)
       }
     }
-    
-    console.log(this.sprite.anims.currentAnim.key)
   }
 
   switchLane(newLane) {

@@ -3,10 +3,12 @@ class Enemy extends Phaser.GameObjects.Container {
     // Define lane Y positions (matching player lanes)
     super(scene, -100, LANE_POSITIONS[lane].y || 300);
     this.setScale(LANE_POSITIONS[lane].scale, LANE_POSITIONS[lane].scale)
+    this.size = 4 // 4 == can't jump over
     scene.add.existing(this);
+    let imageName = "player"
     switch (lane) {
       case 1:
-          this.x = GAME_WIDTH * 3;
+          this.x = GAME_WIDTH + 100;
           this.speed = 18
           this.scaleX = -1
         break;
@@ -17,23 +19,25 @@ class Enemy extends Phaser.GameObjects.Container {
           this.blip.setTintFill(0xFF0000)
         break;
       case 3:
-        this.x = GAME_WIDTH * 3;
-        const direction = Random.coinFlip()
-        if (direction) {
-          this.speed = 2
-          this.scaleX = -LANE_POSITIONS[lane].scale
-        } else {
-          this.speed = 1
-        }
+        imageName = "kittens"
+        this.x = GAME_WIDTH + 100;
+        this.speed = 0
+        this.size = 2
+        // const direction = Random.coinFlip()
+        // if (direction) {
+        //   this.speed = 2
+        //   this.scaleX = -LANE_POSITIONS[lane].scale
+        // } else {
+        //   this.speed = 1
+        // }
         break;
 
       default:
         break;
     }
 
-    this.image = scene.add.image(0, -20, "player");
-    this.image.setTint(0xff0000);
-    this.image.setOrigin(.5, 0)
+    this.image = scene.add.image(0, 0, imageName);
+    this.image.setOrigin(.5, 1)
     this.add(this.image);
     
     this.lane = lane;
@@ -61,6 +65,9 @@ class Enemy extends Phaser.GameObjects.Container {
   }
 
   checkCollisionWithPlayer() {
+    if (this.height === 0) {
+      return
+    }
     const player = scene.player
     if (!player) return;
     if (this.lane === player.lane) {
@@ -69,7 +76,30 @@ class Enemy extends Phaser.GameObjects.Container {
       const playerLeft = player.x;
       const playerRight = player.x + player.sprite.displayWidth * player.scaleX;
       if (enemyLeft < playerRight && enemyRight > playerLeft) {
-        this.onCollisionWithPlayer();
+        const smallHeights = [78,79,80,81,82,83,106,107,115,116,109,110,111,112,113,114]
+        const MediumHeights = [109,110,111,112,113,114]
+        // check height
+        const frame = player.sprite.anims.currentFrame.textureFrame
+        switch (this.size) {
+          case 1:
+            if (!smallHeights.includes(frame)) {
+              this.onCollisionWithPlayer();
+            }
+            break;
+          case 2:
+            console.log(frame)
+            if (!MediumHeights.includes(frame)) {
+              console.log('boop')
+              this.onCollisionWithPlayer();
+            }
+            break;
+          case 3:
+          case 4:
+            this.onCollisionWithPlayer();
+            break;
+          default:
+            break;
+        }
       }
     }
   }

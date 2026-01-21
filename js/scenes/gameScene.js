@@ -19,6 +19,9 @@ let gameScene = new Phaser.Class({
     this.load.image("bg5", "images/bg5.png");
 
 
+    this.load.image("kittens", "images/kittens.png");
+
+
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
   },
