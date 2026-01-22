@@ -127,6 +127,7 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
+    distance += bikeSpeed * speedMod
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
       switch (this.speedState) {
         case 0:

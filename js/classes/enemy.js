@@ -1,5 +1,5 @@
 class Enemy extends Phaser.GameObjects.Container {
-  constructor(lane = 1) {
+  constructor(lane = 1, type = 1) {
     // Define lane Y positions (matching player lanes)
     super(scene, -100, LANE_POSITIONS[lane].y || 300);
     this.setScale(LANE_POSITIONS[lane].scale, LANE_POSITIONS[lane].scale)
@@ -19,10 +19,20 @@ class Enemy extends Phaser.GameObjects.Container {
           this.blip.setTintFill(0xFF0000)
         break;
       case 3:
-        imageName = "kittens"
-        this.x = GAME_WIDTH + 100;
-        this.speed = 0
-        this.size = 2
+        switch (type) {
+          case 1:
+              imageName = "grate" + (Random.coinFlip() ? 1 : 2)
+              console.log(imageName)
+              this.x = GAME_WIDTH + 100;
+              this.y += 6
+              this.speed = 0
+              this.size = 1
+            break;
+        
+          default:
+            break;
+        }
+
         // const direction = Random.coinFlip()
         // if (direction) {
         //   this.speed = 2
@@ -76,20 +86,18 @@ class Enemy extends Phaser.GameObjects.Container {
       const playerLeft = player.x;
       const playerRight = player.x + player.sprite.displayWidth * player.scaleX;
       if (enemyLeft < playerRight && enemyRight > playerLeft) {
-        const smallHeights = [78,79,80,81,82,83,106,107,115,116,109,110,111,112,113,114]
+        const smallHeights = [77,78,79,80,81,82,83,84,   105,106,   115,116,117]
         const MediumHeights = [107,108,109,110,111,112,113,114]
-        // check height
+        const largeHeights = []
         const frame = player.sprite.anims.currentFrame.textureFrame
         switch (this.size) {
           case 1:
-            if (!smallHeights.includes(frame)) {
+            if (![...smallHeights, ...MediumHeights, ...largeHeights].includes(frame)) {
               this.onCollisionWithPlayer();
             }
             break;
           case 2:
-            console.log(frame)
-            if (!MediumHeights.includes(frame)) {
-              console.log('boop')
+            if (![...MediumHeights, ...largeHeights].includes(frame)) {
               this.onCollisionWithPlayer();
             }
             break;

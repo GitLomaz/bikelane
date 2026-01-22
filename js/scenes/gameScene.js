@@ -19,7 +19,11 @@ let gameScene = new Phaser.Class({
     this.load.image("bg5", "images/bg5.png");
 
 
+    this.load.image("grate1", "images/grate1.png");
+    this.load.image("grate2", "images/grate2.png");
     this.load.image("kittens", "images/kittens.png");
+    this.load.image("vinyl", "images/vinyl.png");
+    this.load.image("vlc", "images/vlc.png");
 
 
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
@@ -38,12 +42,15 @@ let gameScene = new Phaser.Class({
     this.spawnTimer = 0;
     this.spawnInterval = 120; // Spawn an enemy every 120 frames (~2 seconds at 60 FPS)
     this.enemySpeed = 3; // Pixels per frame
+
+    this.bikelaneSpawner = new BikelaneSpawner()
   },
 
   update: function (time) {
     // Spawn enemies
     this.bg.update()
     this.manhole.update()
+    this.bikelaneSpawner.update()
     this.spawnTimer++;
     if (this.spawnTimer >= this.spawnInterval) {
       this.spawnEnemy();
@@ -62,7 +69,7 @@ let gameScene = new Phaser.Class({
   },
 
   spawnEnemy: function() {
-    const randomLane = Phaser.Math.Between(1, 3);
+    const randomLane = Phaser.Math.Between(1, 2);
     const enemy = new Enemy(randomLane, this.enemySpeed);
     this.enemies.push(enemy);
   }

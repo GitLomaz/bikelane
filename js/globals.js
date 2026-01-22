@@ -8,5 +8,6 @@ const LANE_POSITIONS = {
 };
 let speedMod = 1;
 let bikeSpeed = 12;
+let distance = 0;
 let scene;
 
