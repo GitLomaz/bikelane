@@ -1,6 +1,6 @@
-const grateFrequency = 4320
-const baseFrequency = 5000
-const minFrequency = 1000
+const grateFrequency = 4320 * 2
+const baseFrequency = 5000 * 2
+const minFrequency = 1000 * 2
 const frequencyDegridation = .5
 
 class BikelaneSpawner {
