@@ -19,17 +19,28 @@ class Enemy extends Phaser.GameObjects.Container {
           this.blip.setTintFill(0xFF0000)
         break;
       case 3:
+        this.x = GAME_WIDTH + 100;
+        this.y += 6
+        this.speed = 0
         switch (type) {
           case 1:
               imageName = "grate" + (Random.coinFlip() ? 1 : 2)
-              console.log(imageName)
-              this.x = GAME_WIDTH + 100;
-              this.y += 6
-              this.speed = 0
               this.size = 1
-            break;
-        
+            break;    
+          case 2:
+              imageName = "kittens"
+              this.size = 2
+            break;    
+          case 3:
+              imageName = "vlc"
+              this.size = 2
+            break;    
+          case 4:
+              imageName = "vinyl"
+              this.size = 2
+            break;        
           default:
+
             break;
         }
 
