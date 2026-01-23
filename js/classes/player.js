@@ -8,6 +8,8 @@ class Player extends Phaser.GameObjects.Container {
     this.sprite = scene.add.sprite(0, 0, "bike")
     this.sprite.setOrigin(0, 1)
 
+    this.invincable = false
+
     scene.anims.create({
       key: 'normal',
       frames: scene.anims.generateFrameNumbers('bike', { start: 0, end: 14 }),
@@ -240,6 +242,24 @@ class Player extends Phaser.GameObjects.Container {
 
   onLaneSwitchMidpoint(newLane) {
     this.lane = newLane
+  }
+
+  takeDamage() {
+    if (this.invincable) {
+      return
+    }
+    this.invincable = true
+    scene.tweens.add({
+      targets: this,
+      alpha: 0.2,
+      duration: 200,
+      ease: "Quad.easeInOut",
+      yoyo: true,
+      repeat: 2,
+      onComplete: () => {
+        this.invincable = false
+      }
+    });
   }
 }
 

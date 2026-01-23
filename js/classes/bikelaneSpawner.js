@@ -11,14 +11,12 @@ class BikelaneSpawner {
   }
 
   update() {
-    // this one goes by distance because they are very evenly spaced
     if (distance >= this.enemySpawnMilestone) {
       this.spawn(1);
       this.enemySpawnMilestone += grateFrequency;
     }
     if (distance >= this.nextObsticle) {
       this.spawn(Random.between(2, 4));
-      console.log(this.obsticleFrequency)
       this.nextObsticle = distance + Random.between(this.obsticleFrequency / 4, this.obsticleFrequency)
     }
     if (this.obsticleFrequency > minFrequency) {

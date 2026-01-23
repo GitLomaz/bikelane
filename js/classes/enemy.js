@@ -128,6 +128,7 @@ class Enemy extends Phaser.GameObjects.Container {
       this.blip.destroy()
     }
     this.destroy();
+    scene.player.takeDamage()
   }
 }
 
