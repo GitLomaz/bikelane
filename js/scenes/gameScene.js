@@ -35,7 +35,6 @@ let gameScene = new Phaser.Class({
     this.bg = new BG();
     new Radar();
     this.player = new Player();
-    this.manhole = new Manhole();
     
     // Enemy spawning system
     this.enemies = [];
@@ -49,7 +48,6 @@ let gameScene = new Phaser.Class({
   update: function (time) {
     // Spawn enemies
     this.bg.update()
-    this.manhole.update()
     this.bikelaneSpawner.update()
     this.spawnTimer++;
     if (this.spawnTimer >= this.spawnInterval) {
