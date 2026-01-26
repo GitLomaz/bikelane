@@ -120,6 +120,8 @@ class Player extends Phaser.GameObjects.Container {
         }
       }
     );
+
+    this.lifeCounter = new LifeCounter(scene);
   }
 
   setupInput() {
@@ -246,9 +248,11 @@ class Player extends Phaser.GameObjects.Container {
 
   takeDamage() {
     if (this.invincable) {
-      return
+      return;
     }
-    this.invincable = true
+    this.invincable = true;
+    this.lifeCounter.loseLife();
+
     scene.tweens.add({
       targets: this,
       alpha: 0.2,
@@ -257,9 +261,8 @@ class Player extends Phaser.GameObjects.Container {
       yoyo: true,
       repeat: 2,
       onComplete: () => {
-        this.invincable = false
-      }
+        this.invincable = false;
+      },
     });
   }
 }
-

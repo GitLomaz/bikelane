@@ -13,7 +13,7 @@ function setSpeedMod(mod) {
   } else if (speedMod > 1) {
     // scene.player.sprite.anims.play({ key: "bike", frameRate: 25, startFrame: currentFrame})
     bikeSpeed = 12 * 1.25;
-    scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60 * 1.5, startFrame: sidewalkFrame})
+    scene.bg.sidewalk.anims.play({ key: "sidewalk", frameRate: 60 * 1.25, startFrame: sidewalkFrame})
   } else if (speedMod < 1) {
     // scene.player.sprite.anims.play({ key: "bike", frameRate: 10, startFrame: currentFrame})
     bikeSpeed = 12 * .75;

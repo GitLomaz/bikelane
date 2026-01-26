@@ -3,7 +3,7 @@ let config = {
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
   parent: "wrapper",
-  scene: [gameScene],
+  scene: [titleScene, gameScene],
   zoom: 2,
 };
 

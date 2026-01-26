@@ -7,7 +7,6 @@ let gameScene = new Phaser.Class({
   },
 
   preload: function () {
-    this.load.image("radar", "images/radar.png");
     this.load.image("player", "images/player.png");
     this.load.image("blip", "images/blip.png");
     
@@ -28,6 +27,7 @@ let gameScene = new Phaser.Class({
 
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
+    this.load.image('life', 'images/life.png');
   },
 
   create: function () {
