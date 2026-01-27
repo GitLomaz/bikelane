@@ -53,47 +53,49 @@ function buildHighScores() {
     stroke: '#330030',
     strokeThickness: 4
   });
-  scene.loading.setOrigin(.5);
-  scene.scores = [];
-
-  const url = submission
-    ? "https://us-dev.nightscapes.io/scores/submitScores.php"
-    : "https://us-dev.nightscapes.io/scores/submitScores.php?game=snowball";
-
-  const options = submission
-    ? {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: submission }),
-      }
-    : { method: "GET" };
-
-  fetch(url, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((res) => {
-      scene.loading.visible = false;
-      res.scores.forEach((score, i) => {
-        const item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score);
-        scene.scores.push(item);
-        scene.add.existing(item);
-      });
-
-      if (res.position) {
-        const item = new ScoreItem(115, 150 + 310, res.position, res.name, res.score);
-        scene.scores.push(item);
-        scene.add.existing(item);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching high scores:", error);
-      scene.loading.setText("Failed to load scores.");
+  scene.loading.setOrigin(.5)  
+  scene.scores = [] 
+  if (submission) {
+    $.ajax({
+      type: "POST",
+      url: "https://us-dev.nightscapes.io/scores/submitScores.php",
+      data: { data: submission },
+      dataType: "json",
+      success: function (res) {
+        scene.loading.visible = false
+        _.each(res.scores, function (score, i) {
+          let item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score)
+          scene.scores.push(item)
+          scene.add.existing(item);
+        });
+        if (res.position) {
+          let item = new ScoreItem(115, 150 + 310, res.position, res.name, res.score)
+          scene.scores.push(item)
+          scene.add.existing(item);
+        }
+      },
     });
-
-  submission = false;
+    submission = false
+  } else {
+    $.ajax({
+      url: "https://us-dev.nightscapes.io/scores/submitScores.php?game=snowball",
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        scene.loading.visible = false
+        _.each(res.scores, function (score, i) {
+          let item = new ScoreItem(
+            115,
+            150 + i * 30,
+            i + 1,
+            score.name,
+            score.score
+          );
+          scene.add.existing(item);
+          scene.scores.push(item)
+        });
+      },
+    });
+  }
 }
 
