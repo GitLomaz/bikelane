@@ -1,6 +1,6 @@
 class DemoPlayer extends Phaser.GameObjects.Container {
   constructor() {
-    super(scene, GAME_WIDTH / 2 - 125, LANE_POSITIONS[3].y);
+    super(scene, GAME_WIDTH / 2 - 75, LANE_POSITIONS[3].y);
     this.setScale(LANE_POSITIONS[3].scale, LANE_POSITIONS[3].scale)
     this.setName("player");
     scene.add.existing(this);

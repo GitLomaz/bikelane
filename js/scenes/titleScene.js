@@ -32,10 +32,68 @@ let titleScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     this.player = new DemoPlayer();
-    console.log('title?!')
+    this.scores = new Button(1050, 665, "highscore", () => {
+      buildHighScores()
+    })
+    this.start = new Button(-10, 665, "play", () => {
+      scene.scene.start("gameScene")
+    })
   },
 
   update: function (time) {
     this.bg.update()
   },
 });
+
+function buildHighScores() {
+  scene.loading = scene.add.text(400, 300, "Loading . . .", {
+    fontFamily: 'myFont',
+    fontSize: "32px",
+    align: "center",
+    stroke: '#330030',
+    strokeThickness: 4
+  });
+  scene.loading.setOrigin(.5);
+  scene.scores = [];
+
+  const url = submission
+    ? "https://us-dev.nightscapes.io/scores/submitScores.php"
+    : "https://us-dev.nightscapes.io/scores/submitScores.php?game=snowball";
+
+  const options = submission
+    ? {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: submission }),
+      }
+    : { method: "GET" };
+
+  fetch(url, options)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((res) => {
+      scene.loading.visible = false;
+      res.scores.forEach((score, i) => {
+        const item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score);
+        scene.scores.push(item);
+        scene.add.existing(item);
+      });
+
+      if (res.position) {
+        const item = new ScoreItem(115, 150 + 310, res.position, res.name, res.score);
+        scene.scores.push(item);
+        scene.add.existing(item);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching high scores:", error);
+      scene.loading.setText("Failed to load scores.");
+    });
+
+  submission = false;
+}
+

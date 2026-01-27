@@ -1,42 +1,38 @@
 class Button extends Phaser.GameObjects.Container {
-  constructor(x, y, buttonImage, callback) {
+  constructor(x, y, textureKey, callback) {
     super(scene, x, y);
-    this.buttonImage = buttonImage;
+
     this.callback = callback;
-    this.isHovered = false;
-    this.isPressed = false;
-  }
+    this.texture = textureKey
 
-  draw(ctx) {
-    if (this.buttonImage) {
-      ctx.drawImage(this.buttonImage, this.x, this.y);
-    }
-  }
+    // Create the image
+    this.image = scene.add.image(0, 0, textureKey);
+    this.image.setOrigin(0, 0);
 
-  handleMouseMove(mouseX, mouseY) {
-    this.isHovered = this.isPointInside(mouseX, mouseY);
-  }
+    // Add to container
+    this.add(this.image);
 
-  handleMouseDown(mouseX, mouseY) {
-    if (this.isPointInside(mouseX, mouseY)) {
-      this.isPressed = true;
-    }
-  }
+    // Set size for input hit area
+    this.setSize(this.image.width, this.image.height);
 
-  handleMouseUp(mouseX, mouseY) {
-    if (this.isPressed && this.isPointInside(mouseX, mouseY)) {
+    // Enable input
+    this.image.setInteractive();
+
+    // Input events
+    this.image.on('pointerover', () => {
+      this.image.setTexture(this.texture + '-over')
+    });
+
+    this.image.on('pointerout', () => {
+      this.image.setTexture(this.texture)
+    });
+
+    this.image.on('pointerdown', () => {
       if (this.callback) {
         this.callback();
       }
-    }
-    this.isPressed = false;
-  }
+    });
 
-  isPointInside(x, y) {
-    return this.buttonImage && 
-         x >= this.x && 
-         x <= this.x + this.buttonImage.width &&
-         y >= this.y && 
-         y <= this.y + this.buttonImage.height;
+    scene.add.existing(this);
   }
 }
