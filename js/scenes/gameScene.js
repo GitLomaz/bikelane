@@ -18,6 +18,15 @@ let gameScene = new Phaser.Class({
     this.load.image("bg5", "images/bg5.png");
 
 
+    this.load.image("vehicle1", "images/big1.png");
+    this.load.image("vehicle2", "images/big2.png");
+    this.load.image("vehicle3", "images/med1.png");
+    this.load.image("vehicle4", "images/med2.png");
+    this.load.image("vehicle5", "images/small1.png");
+    this.load.image("vehicle6", "images/small2.png");
+    this.load.image("vehicle7", "images/small3.png");
+
+
     this.load.image("grate1", "images/grate1.png");
     this.load.image("grate2", "images/grate2.png");
     this.load.image("kittens", "images/kittens.png");
@@ -38,22 +47,15 @@ let gameScene = new Phaser.Class({
     
     // Enemy spawning system
     this.enemies = [];
-    this.spawnTimer = 0;
-    this.spawnInterval = 120; // Spawn an enemy every 120 frames (~2 seconds at 60 FPS)
-    this.enemySpeed = 3; // Pixels per frame
 
     this.bikelaneSpawner = new BikelaneSpawner()
+    this.carSpawner = new CarSpawner()
   },
 
   update: function (time) {
-    // Spawn enemies
     this.bg.update()
     this.bikelaneSpawner.update()
-    this.spawnTimer++;
-    if (this.spawnTimer >= this.spawnInterval) {
-      this.spawnEnemy();
-      this.spawnTimer = 0;
-    }
+    this.carSpawner.update()
     
     // Update all enemies
     this.enemies.forEach((enemy, index) => {

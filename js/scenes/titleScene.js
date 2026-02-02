@@ -32,6 +32,7 @@ let titleScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     this.player = new DemoPlayer();
+    this.carSpawner = new CarSpawner()
     this.scores = new Button(1050, 665, "highscore", () => {
       buildHighScores()
     })
@@ -42,6 +43,7 @@ let titleScene = new Phaser.Class({
 
   update: function (time) {
     this.bg.update()
+    this.carSpawner.update()
   },
 });
 
