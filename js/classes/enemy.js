@@ -29,14 +29,14 @@ class Enemy extends Phaser.GameObjects.Container {
           this.x = GAME_WIDTH + 1000;
           this.speed = 18
           this.scaleX = -1
-          this.y += 15
+          this.y += 10
         break;
       case 2:
           this.x = -GAME_WIDTH;
           this.speed = -18
           this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
           this.blip.setTintFill(0xFF0000)
-          this.y += 15
+          this.y += 10
         break;
       case 3:
         this.x = GAME_WIDTH + 100;
