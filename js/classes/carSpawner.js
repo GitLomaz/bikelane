@@ -9,7 +9,6 @@ class CarSpawner {
   }
 
   update() {
-    console.log(distance + ' ' + this.nextObsticle)
     if (distance >= this.nextObsticle) {
       this.spawn();
       this.nextObsticle = distance + Random.between(this.obsticleFrequency / 4, this.obsticleFrequency)

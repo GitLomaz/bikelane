@@ -6,7 +6,24 @@ class Enemy extends Phaser.GameObjects.Container {
     this.setDepth(LANE_POSITIONS[lane].depth)
     this.size = 4 // 4 == can't jump over
     scene.add.existing(this);
-    let imageName = "vehicle" + Random.between(1, 7)
+    let imageName = "vehicle"
+    let roll = Random.between (1, 20)
+    switch (roll) {
+      case 1:
+        imageName += Random.between (1, 2)
+        break;
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+        imageName += Random.between (3, 4)
+        break;
+      default:
+        imageName += Random.between (5, 7)
+    }
     switch (lane) {
       case 1:
           this.x = GAME_WIDTH + 1000;
