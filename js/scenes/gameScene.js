@@ -44,6 +44,7 @@ let gameScene = new Phaser.Class({
     this.bg = new BG();
     new Radar();
     this.player = new Player();
+    this.score = new Score();
     
     // Enemy spawning system
     this.enemies = [];
@@ -56,6 +57,7 @@ let gameScene = new Phaser.Class({
     this.bg.update()
     this.bikelaneSpawner.update()
     this.carSpawner.update()
+    this.score.update()
     
     // Update all enemies
     this.enemies.forEach((enemy, index) => {

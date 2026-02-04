@@ -245,6 +245,7 @@ class Player extends Phaser.GameObjects.Container {
   onLaneSwitchMidpoint(newLane) {
     this.lane = newLane
     this.setDepth(LANE_POSITIONS[newLane].depth - 1)
+    scene.score.cashInBonus()
   }
 
   takeDamage() {
@@ -253,6 +254,7 @@ class Player extends Phaser.GameObjects.Container {
     }
     this.invincable = true;
     this.lifeCounter.loseLife();
+    scene.score.resetBonus();
 
     scene.tweens.add({
       targets: this,

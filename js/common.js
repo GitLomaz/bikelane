@@ -2,9 +2,7 @@ function setSpeedMod(mod) {
   if (mod === speedMod) {
     return;
   }
-  console.log(speedMod)
   speedMod = mod
-  const currentFrame = scene.player.sprite.anims.currentFrame.index - 1;
   const sidewalkFrame = scene.bg.sidewalk.anims.currentFrame.index - 1;
   if (speedMod === 1) {
     // scene.player.sprite.anims.play({ key: "bike", frameRate: 15, startFrame: currentFrame})
