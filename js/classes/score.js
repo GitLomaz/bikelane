@@ -3,8 +3,10 @@ class Score extends Phaser.GameObjects.Container {
     // Define lane Y positions (matching player lanes)
     super(scene, GAME_WIDTH / 2, 50);
     this.score = 0
-    this.scoreBonus = 0
-    this.scoreBonusMod = 1
+    this.scoreBonusOne = 0
+    this.scoreBonusTwo = 0
+    this.scoreBonusModOne = 1.25
+    this.scoreBonusModTwo = 1.75
     this.scoreText = scene.add.text(0, 0, this.score, {
       fontFamily: 'myFont',
       fontSize: "32px",
@@ -16,44 +18,44 @@ class Score extends Phaser.GameObjects.Container {
       fontSize: "32px",
       align: "center",
     })
-    this.scoreBonusModText = scene.add.text(70, 0, this.score, {
-      fontFamily: 'myFont',
-      fontSize: "32px",
-      align: "center",
-    })
     this.add(this.scoreText)
     this.add(this.scoreBonusText)
-    this.add(this.scoreBonusModText)
     scene.add.existing(this);
   }
 
   update() {
     this.scoreText.setText(this.score)
-    this.scoreBonusText.setText("+ " + this.scoreBonus + " x" + this.scoreBonusMod)
-    this.scoreBonusModText.setText()
+    let scoreString = ""
+    if (this.scoreBonusOne > 0) {
+      scoreString += "+ " + this.scoreBonusOne + " x" + this.scoreBonusModOne
+    }
+    if (this.scoreBonusTwo > 0) {
+      scoreString += "+ " + this.scoreBonusTwo + " x" + this.scoreBonusModTwo
+    }
+    this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {
       this.score += bikeSpeed
       this.scoreBonusText.setText("")
     } else if (scene.player.lane === 2) {
-      this.scoreBonus += bikeSpeed
-      this.scoreBonusMod = 1.25
+      this.scoreBonusOne += bikeSpeed
     } else if (scene.player.lane === 1) {
-      this.scoreBonus += bikeSpeed
-      this.scoreBonusMod = 1.75
+      this.scoreBonusTwo += bikeSpeed
     }
   }
 
   cashInBonus() {
-    const score = Math.floor(this.scoreBonus * this.scoreBonusMod)
+    const score = Math.floor(this.scoreBonusOne * this.scoreBonusModOne + this.scoreBonusTwo * this.scoreBonusModTwo)
     this.score += score
     this.floatNumber(score)
-    this.scoreBonus = 0
+    this.scoreBonusOne = 0
+    this.scoreBonusTwo = 0
   }
 
   resetBonus() {
-    const score = Math.floor(this.scoreBonus * this.scoreBonusMod)
+    const score = Math.floor(this.scoreBonusOne * this.scoreBonusModOne + this.scoreBonusTwo * this.scoreBonusModTwo)
     this.floatNumber(score, false)
-    this.scoreBonus = 0
+    this.scoreBonusOne = 0
+    this.scoreBonusTwo = 0
   }
 
   floatNumber(value, up = true) {

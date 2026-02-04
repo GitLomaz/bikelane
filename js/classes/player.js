@@ -245,7 +245,9 @@ class Player extends Phaser.GameObjects.Container {
   onLaneSwitchMidpoint(newLane) {
     this.lane = newLane
     this.setDepth(LANE_POSITIONS[newLane].depth - 1)
-    scene.score.cashInBonus()
+    if (newLane === 3) {
+      scene.score.cashInBonus()
+    }
   }
 
   takeDamage() {
