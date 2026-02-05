@@ -11,12 +11,16 @@ class StaticObject extends Phaser.GameObjects.Container {
 
   update() {
     this.x -= bikeSpeed * 1.1
-    if (this.x > GAME_WIDTH / 3 * 2) {
+    if (this.x > GAME_WIDTH / 5 * 4) {
       this.sprite.setFrame(0)
-    } else if (this.x > GAME_WIDTH / 3) {
+    } else if (this.x > GAME_WIDTH / 5 * 3) {
       this.sprite.setFrame(1)
-    } else {
+    } else if (this.x > GAME_WIDTH / 5 * 2) {
       this.sprite.setFrame(2)
+    } else if (this.x > GAME_WIDTH / 5 * 1) {
+      this.sprite.setFrame(3)
+    } else {
+      this.sprite.setFrame(4)
     }
 
     if (this.x < -500) {
