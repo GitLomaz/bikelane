@@ -24,6 +24,7 @@ let titleScene = new Phaser.Class({
     this.load.image("play-over", "images/play-over.png");
 
 
+    this.load.spritesheet('bench', 'images/bench.png', { frameWidth: 200, frameHeight: 100 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
   },
@@ -33,17 +34,22 @@ let titleScene = new Phaser.Class({
     this.bg = new BG();
     this.player = new DemoPlayer();
     this.carSpawner = new CarSpawner()
+    this.enemies = [];
     this.scores = new Button(1050, 665, "highscore", () => {
       buildHighScores()
     })
     this.start = new Button(-10, 665, "play", () => {
       scene.scene.start("gameScene")
     })
+    new StaticObject("bench")
   },
 
   update: function (time) {
     this.bg.update()
     this.carSpawner.update()
+    if (this.staticObject) {
+      this.staticObject.update()
+    }
   },
 });
 
@@ -65,9 +71,9 @@ function buildHighScores() {
       dataType: "json",
       success: function (res) {
         scene.loading.visible = false
-        _.each(res.scores, function (score, i) {
-          let item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score)
-          scene.scores.push(item)
+        res.scores.forEach(function (score, i) {
+          let item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score);
+          scene.scores.push(item);
           scene.add.existing(item);
         });
         if (res.position) {
@@ -85,7 +91,7 @@ function buildHighScores() {
       dataType: "json",
       success: function (res) {
         scene.loading.visible = false
-        _.each(res.scores, function (score, i) {
+        res.scores.forEach(function (score, i) {
           let item = new ScoreItem(
             115,
             150 + i * 30,
@@ -94,7 +100,7 @@ function buildHighScores() {
             score.score
           );
           scene.add.existing(item);
-          scene.scores.push(item)
+          scene.scores.push(item);
         });
       },
     });

@@ -25,6 +25,11 @@ class Score extends Phaser.GameObjects.Container {
 
   update() {
     this.scoreText.setText(this.score)
+    if (!scene.player.alive) {
+      this.resetBonus()
+      this.scoreBonusText.setText("")
+      return
+    }
     let scoreString = ""
     if (this.scoreBonusOne > 0) {
       scoreString += "+ " + this.scoreBonusOne + " x" + this.scoreBonusModOne

@@ -11,3 +11,4 @@ let bikeSpeed = 12;
 let distance = 0;
 let scene;
 let submission = false
+let animal = animals[Phaser.Math.Between(0, 191)].toUpperCase();

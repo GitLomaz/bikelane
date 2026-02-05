@@ -9,6 +9,7 @@ class Player extends Phaser.GameObjects.Container {
     this.sprite.setOrigin(0, 1)
 
     this.invincable = false
+    this.alive = true
 
     scene.anims.create({
       key: 'normal',
@@ -121,7 +122,7 @@ class Player extends Phaser.GameObjects.Container {
       }
     );
 
-    this.lifeCounter = new LifeCounter(scene);
+    this.lifeCounter = new LifeCounter();
   }
 
   setupInput() {
@@ -131,6 +132,9 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   update() {
+    if (!this.alive) {
+      return
+    }
     distance += bikeSpeed * speedMod
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
       switch (this.speedState) {
@@ -258,6 +262,11 @@ class Player extends Phaser.GameObjects.Container {
     this.lifeCounter.loseLife();
     scene.score.resetBonus();
 
+    if (this.lifeCounter.lives === 0) {
+      this.die();
+      return;
+    }
+
     scene.tweens.add({
       targets: this,
       alpha: 0.2,
@@ -269,5 +278,29 @@ class Player extends Phaser.GameObjects.Container {
         this.invincable = false;
       },
     });
+  }
+
+  die() {
+    console.log("game over")
+    this.alive = false
+    scene.tweens.add({
+      targets: this,
+      alpha: 0,
+      duration: 200,
+      ease: "Quad.easeInOut",
+    });
+    
+    $('#user').fadeIn(1000)
+    $('#user').focus()
+    $('#user').val(animal)
+    scene.input.keyboard.clearCaptures()
+     new Button(1050 - 200, 665 - 110, "back", () => {
+      scene.scene.stop()
+      scene.scene.start("titleScene")
+      $('#user').hide()
+    })
+    new Button(-10 + 200, 665 - 110, "submit", () => {
+      // scene.scene.start("gameScene")
+    })
   }
 }

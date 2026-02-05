@@ -34,6 +34,12 @@ let gameScene = new Phaser.Class({
     this.load.image("vlc", "images/vlc.png");
 
 
+    this.load.image("submit", "images/submit.png");
+    this.load.image("submit-over", "images/submit-over.png");
+    this.load.image("back", "images/back.png");
+    this.load.image("back-over", "images/back-over.png");
+
+
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
     this.load.image('life', 'images/life.png');
@@ -69,10 +75,4 @@ let gameScene = new Phaser.Class({
       }
     });
   },
-
-  spawnEnemy: function() {
-    const randomLane = Phaser.Math.Between(1, 2);
-    const enemy = new Enemy(randomLane, this.enemySpeed);
-    this.enemies.push(enemy);
-  }
 });

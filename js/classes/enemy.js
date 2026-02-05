@@ -106,11 +106,10 @@ class Enemy extends Phaser.GameObjects.Container {
   }
 
   checkCollisionWithPlayer() {
-    if (this.height === 0) {
+    const player = scene.player
+    if (this.height === 0 || !player || !player.alive) {
       return
     }
-    const player = scene.player
-    if (!player) return;
     if (this.lane === player.lane) {
       const enemyLeft = this.x - this.width / 2 * Math.abs(this.scaleX);
       const enemyRight = this.x + this.width / 2 * Math.abs(this.scaleX);
