@@ -32,3 +32,7 @@ function playWithChain(sprite, startKey, chainKeys = []) {
   // Queue next anim(s)
   if (chainKeys.length) sprite.chain(chainKeys);
 }
+
+function displayNumber(y) {
+  return y.toLocaleString("en-US");
+}

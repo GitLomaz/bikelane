@@ -8,7 +8,6 @@ let titleScene = new Phaser.Class({
 
   preload: function () {
     this.load.image("player", "images/player.png");
-    this.load.image("blip", "images/blip.png");
     
     
     this.load.image("bg", "images/bg.png");
@@ -33,8 +32,6 @@ let titleScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     this.player = new DemoPlayer();
-    this.carSpawner = new CarSpawner()
-    this.enemies = [];
     this.scores = new Button(1050, 665, "highscore", () => {
       buildHighScores()
     })
@@ -42,11 +39,13 @@ let titleScene = new Phaser.Class({
       scene.scene.start("gameScene")
     })
     new StaticObject("bench")
+    if (submission) {
+      buildHighScores()
+    }
   },
 
   update: function (time) {
     this.bg.update()
-    this.carSpawner.update()
     if (this.staticObject) {
       this.staticObject.update()
     }
@@ -86,15 +85,15 @@ function buildHighScores() {
     submission = false
   } else {
     $.ajax({
-      url: "https://us-dev.nightscapes.io/scores/submitScores.php?game=snowball",
+      url: "https://us-dev.nightscapes.io/scores/submitScores.php?game=bikelane",
       type: "GET",
       dataType: "json",
       success: function (res) {
         scene.loading.visible = false
         res.scores.forEach(function (score, i) {
           let item = new ScoreItem(
-            115,
-            150 + i * 30,
+            415,
+            50 + i * 30,
             i + 1,
             score.name,
             score.score

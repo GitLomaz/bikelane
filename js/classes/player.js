@@ -291,16 +291,25 @@ class Player extends Phaser.GameObjects.Container {
     });
     
     $('#user').fadeIn(1000)
-    $('#user').focus()
     $('#user').val(animal)
     scene.input.keyboard.clearCaptures()
      new Button(1050 - 200, 665 - 110, "back", () => {
-      scene.scene.stop()
+      scene.scene.stop('gameScene');
       scene.scene.start("titleScene")
       $('#user').hide()
     })
     new Button(-10 + 200, 665 - 110, "submit", () => {
-      // scene.scene.start("gameScene")
+      submission = btoa(
+        '{ "game": "bikelane", "name": "' +
+          $("#user").val().toUpperCase() +
+          '", "score": ' +
+          scene.score.score +
+          "}"
+      );
+      animal = $("#user").val().toUpperCase();
+      scene.scene.stop('gameScene');
+      scene.scene.start("titleScene")
+      $('#user').hide()
     })
   }
 }
