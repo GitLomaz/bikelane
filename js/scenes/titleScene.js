@@ -71,12 +71,12 @@ function buildHighScores() {
       success: function (res) {
         scene.loading.visible = false
         res.scores.forEach(function (score, i) {
-          let item = new ScoreItem(115, 150 + i * 30, i + 1, score.name, score.score);
+          let item = new ScoreItem(415, 50 + i * 30, i + 1, score.name, score.score);
           scene.scores.push(item);
           scene.add.existing(item);
         });
         if (res.position) {
-          let item = new ScoreItem(115, 150 + 310, res.position, res.name, res.score)
+          let item = new ScoreItem(415, 50 + 310, res.position, res.name, res.score)
           scene.scores.push(item)
           scene.add.existing(item);
         }
