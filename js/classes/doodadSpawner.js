@@ -24,10 +24,10 @@ class DoodadSpawner {
       this.treeCooldown += 3000;
       if (Random.oneIn(3)) {
         const tree = this.spawn("tree" + Phaser.Math.Between(1, 6), 0);
-        tree.x += 400
+        tree.x += 500
         if (Random.oneIn(3)) {
           const tree3 = this.spawn("tree" + Phaser.Math.Between(1, 6), 0);
-          tree3.x += 800
+          tree3.x += 1000
         } 
       } 
     }
