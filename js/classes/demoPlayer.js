@@ -4,7 +4,7 @@ class DemoPlayer extends Phaser.GameObjects.Container {
     this.setScale(LANE_POSITIONS[3].scale, LANE_POSITIONS[3].scale)
     this.setName("player");
     scene.add.existing(this);
-
+    this.setDepth(LANE_POSITIONS[3].depth - 1)
     this.sprite = scene.add.sprite(0, 0, "bike")
     this.sprite.setOrigin(0, 1)
 

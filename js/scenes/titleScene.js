@@ -17,6 +17,21 @@ let titleScene = new Phaser.Class({
     this.load.image("bg5", "images/bg5.png");
 
 
+    this.load.image("lamp", "images/lamp.png");
+    this.load.image("tree1", "images/tree1.png");
+    this.load.image("tree2", "images/tree2.png");
+    this.load.image("tree3", "images/tree3.png");
+    this.load.image("tree4", "images/tree4.png");
+    this.load.image("tree5", "images/tree5.png");
+    this.load.image("tree6", "images/tree6.png");
+    this.load.image("tree7", "images/tree7.png");
+    this.load.image("tree8", "images/tree8.png");
+    this.load.image("tree9", "images/tree9.png");
+    this.load.image("tree10", "images/tree10.png");
+    this.load.image("tree11", "images/tree11.png");
+    this.load.image("tree12", "images/tree12.png");
+
+
     this.load.image("highscore", "images/highscore.png");
     this.load.image("highscore-over", "images/highscore-over.png");
     this.load.image("play", "images/play.png");
@@ -32,23 +47,26 @@ let titleScene = new Phaser.Class({
     scene = this;
     this.bg = new BG();
     this.player = new DemoPlayer();
+    this.doodadSpawner = new DoodadSpawner()
+    this.doodads = [];
     this.scores = new Button(1050, 665, "highscore", () => {
       buildHighScores()
     })
     this.start = new Button(-10, 665, "play", () => {
       scene.scene.start("gameScene")
     })
-    new StaticObject("bench")
     if (submission) {
       buildHighScores()
     }
   },
 
   update: function (time) {
+    distance += bikeSpeed * speedMod
+    this.doodadSpawner.update()
     this.bg.update()
-    if (this.staticObject) {
-      this.staticObject.update()
-    }
+    scene.doodads.forEach((doodad) => {
+      doodad.update()
+    })
   },
 });
 
