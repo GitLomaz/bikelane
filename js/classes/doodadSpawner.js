@@ -25,6 +25,10 @@ class DoodadSpawner {
       if (Random.oneIn(3)) {
         const tree = this.spawn("tree" + Phaser.Math.Between(1, 6), 0);
         tree.x += 400
+        if (Random.oneIn(3)) {
+          const tree3 = this.spawn("tree" + Phaser.Math.Between(1, 6), 0);
+          tree3.x += 800
+        } 
       } 
     }
     if (distance >= this.farTreeCooldown) {
@@ -33,6 +37,10 @@ class DoodadSpawner {
       if (Random.oneIn(2)) {
         const tree = this.spawn("tree" + Phaser.Math.Between(7, 12), 2);
         tree.x += 300
+        if (Random.oneIn(2)) {
+          const treee = this.spawn("tree" + Phaser.Math.Between(7, 12), 2);
+          treee.x += 600
+        } 
       } 
     }
   }
