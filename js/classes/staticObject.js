@@ -4,6 +4,7 @@ class StaticObject extends Phaser.GameObjects.Container {
     this.position = position
     if (position === 1) { // Grass in front of stuff
       this.y = 680
+      this.setDepth(50)
     } else if (position === 0) { // trees, anchor to top
       this.y = 0
       this.setDepth(50)
