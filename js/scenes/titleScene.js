@@ -41,6 +41,10 @@ let titleScene = new Phaser.Class({
     this.load.spritesheet('bench', 'images/bench.png', { frameWidth: 200, frameHeight: 100 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
+
+    this.load.bitmapFont("darkNumbers", "fonts/font.png", "fonts/dark.fnt");
+    this.load.bitmapFont("lightNumbers",  "fonts/font.png", "fonts/light.fnt");
+    this.load.bitmapFont("normal",  "fonts/font.png", "fonts/normal.fnt");
   },
 
   create: function () {
@@ -60,7 +64,7 @@ let titleScene = new Phaser.Class({
     }
   },
 
-  update: function (time) {
+  update: function () {
     distance += bikeSpeed * speedMod
     this.doodadSpawner.update()
     this.bg.update()

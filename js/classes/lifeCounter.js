@@ -7,6 +7,7 @@ class LifeCounter {
       const lifeImage = scene.add.image(scene.cameras.main.width - 20 - i * 40, 20, 'life');
       lifeImage.setOrigin(1, 0);
       lifeImage.setScrollFactor(0);
+      lifeImage.setDepth(1000)
       this.lifeImages.push(lifeImage);
     }
   }

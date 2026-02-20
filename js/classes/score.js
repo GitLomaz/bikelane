@@ -5,21 +5,15 @@ class Score extends Phaser.GameObjects.Container {
     this.score = 0
     this.scoreBonusOne = 0
     this.scoreBonusTwo = 0
-    this.scoreBonusModOne = 1.25
-    this.scoreBonusModTwo = 1.75
-    this.scoreText = scene.add.text(0, 0, this.score, {
-      fontFamily: 'myFont',
-      fontSize: "32px",
-      align: "center",
-    })
+    this.scoreBonusModOne = 2
+    this.scoreBonusModTwo = 4
+
+    this.scoreText = scene.add.bitmapText(0, 0, "normal", this.score, 32);
     this.scoreText.setOrigin(1, 0)
-    this.scoreBonusText = scene.add.text(10, 0, this.score, {
-      fontFamily: 'myFont',
-      fontSize: "32px",
-      align: "center",
-    })
+    this.scoreBonusText = scene.add.bitmapText(10, 0, "normal", this.score, 32);    
     this.add(this.scoreText)
     this.add(this.scoreBonusText)
+    this.setDepth(1000)
     scene.add.existing(this);
   }
 
@@ -32,10 +26,10 @@ class Score extends Phaser.GameObjects.Container {
     }
     let scoreString = ""
     if (this.scoreBonusOne > 0) {
-      scoreString += "+ " + this.scoreBonusOne + " x" + this.scoreBonusModOne
+      scoreString += "+ " + this.scoreBonusOne + " %"
     }
     if (this.scoreBonusTwo > 0) {
-      scoreString += "+ " + this.scoreBonusTwo + " x" + this.scoreBonusModTwo
+      scoreString += "+ " + this.scoreBonusTwo + " &"
     }
     this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {
@@ -67,12 +61,14 @@ class Score extends Phaser.GameObjects.Container {
     if (value === 0) {
       return
     }
-    const floatText = scene.add.text(10, 0,value, {
-      fontFamily: 'myFont',
-      fontSize: "32px",
-      align: "center",
-      color: up ? '#00FF00' : '#FF0000'
-    })
+    
+    const floatText = scene.add.bitmapText(10, 0, up ? "lightNumbers" : "darkNumbers", value, 32); 
+    // const floatText = scene.add.text(10, 0,value, {
+    //   fontFamily: 'myFont',
+    //   fontSize: "32px",
+    //   align: "center",
+    //   color: up ? '#00FF00' : '#FF0000'
+    // })
     this.add(floatText)
     scene.tweens.add({
       targets: floatText,

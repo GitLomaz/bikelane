@@ -51,6 +51,9 @@ let gameScene = new Phaser.Class({
     new Radar();
     this.player = new Player();
     this.score = new Score();
+
+    this.doodadSpawner = new DoodadSpawner()
+    this.doodads = [];
     
     // Enemy spawning system
     this.enemies = [];
@@ -64,6 +67,10 @@ let gameScene = new Phaser.Class({
     this.bikelaneSpawner.update()
     this.carSpawner.update()
     this.score.update()
+    this.doodadSpawner.update()
+    this.doodads.forEach((doodad) => {
+      doodad.update()
+    })
     
     // Update all enemies
     this.enemies.forEach((enemy, index) => {
