@@ -1,38 +1,47 @@
 class Button extends Phaser.GameObjects.Container {
-  constructor(x, y, textureKey, callback) {
+  constructor(x, y, text, callback) {
     super(scene, x, y);
-
     this.callback = callback;
-    this.texture = textureKey
+    this.label = text;
 
-    // Create the image
-    this.image = scene.add.image(0, 0, textureKey);
-    this.image.setOrigin(0, 0);
+    this.fontKey = "normal";
+    this.fontSize = 32;
 
-    // Add to container
-    this.add(this.image);
+    // Create bitmap text
+    this.textObj = scene.add.bitmapText(
+      0,
+      0,
+      this.fontKey,
+      this.label,
+      this.fontSize
+    );
 
-    // Set size for input hit area
-    this.setSize(this.image.width, this.image.height);
+    this.textObj.setOrigin(0.5);
 
-    // Enable input
-    this.image.setInteractive();
+    this.add(this.textObj);
 
-    // Input events
-    this.image.on('pointerover', () => {
-      this.image.setTexture(this.texture + '-over')
-    });
+    // Set container size based on text
+    this.setSize(this.textObj.width, this.textObj.height);
 
-    this.image.on('pointerout', () => {
-      this.image.setTexture(this.texture)
-    });
+    // Make container interactive
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(
+        -this.width / 2,
+        -this.height / 2,
+        this.width * 2,
+        this.height * 2
+      ),
+      Phaser.Geom.Rectangle.Contains,
+      { useHandCursor: true }
+    );
 
-    this.image.on('pointerdown', () => {
-      if (this.callback) {
-        this.callback();
-      }
+    // Click event
+    this.on("pointerdown", () => {
+      if (this.callback) { this.callback(); }
     });
 
     scene.add.existing(this);
+    
+    this.setDepth(1000)
   }
 }

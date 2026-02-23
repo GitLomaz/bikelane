@@ -281,35 +281,54 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   die() {
-    console.log("game over")
     this.alive = false
+    scene.score.scoreText.setOrigin(.5)
     scene.tweens.add({
       targets: this,
       alpha: 0,
       duration: 200,
       ease: "Quad.easeInOut",
     });
-    
-    $('#user').fadeIn(1000)
-    $('#user').val(animal)
+    scene.tweens.add({
+      targets: scene.score,
+      x: GAME_WIDTH / 2,
+      y: 140,
+      scale: 2,
+      duration: 1000,
+      ease: "Quad.easeInOut",
+    });
+    scene.nameInput = new CanvasInput(GAME_WIDTH / 2, 300, 320, 50, {
+      fontKey: "normal",
+      value: animal,
+      fontSize: 32,
+      maxLength: 12,
+      onEnter: (value) => {
+        submission = btoa(
+          '{ "game": "bikelane", "name": "' +
+            value +
+            '", "score": ' +
+            scene.score.score +
+            "}"
+        );
+        scene.scene.stop('gameScene');
+        scene.scene.start("titleScene")
+      }
+    }).focus();
     scene.input.keyboard.clearCaptures()
-     new Button(1050 - 200, 665 - 110, "back", () => {
+     new Button(GAME_WIDTH / 4 * 3, 400, "back", () => {
       scene.scene.stop('gameScene');
       scene.scene.start("titleScene")
-      $('#user').hide()
     })
-    new Button(-10 + 200, 665 - 110, "submit", () => {
-      submission = btoa(
-        '{ "game": "bikelane", "name": "' +
-          $("#user").val().toUpperCase() +
-          '", "score": ' +
-          scene.score.score +
-          "}"
-      );
-      animal = $("#user").val().toUpperCase();
-      scene.scene.stop('gameScene');
-      scene.scene.start("titleScene")
-      $('#user').hide()
+    new Button(GAME_WIDTH / 4, 400, "submit", () => {
+        submission = btoa(
+          '{ "game": "bikelane", "name": "' +
+            scene.nameInput.value +
+            '", "score": ' +
+            scene.score.score +
+            "}"
+        );
+        scene.scene.stop('gameScene');
+        scene.scene.start("titleScene")
     })
   }
 }

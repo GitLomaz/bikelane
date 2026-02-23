@@ -53,15 +53,16 @@ let titleScene = new Phaser.Class({
     this.player = new DemoPlayer();
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
-    this.scores = new Button(1050, 665, "highscore", () => {
+    this.scores = new Button(1140, 675, "highscores", () => {
       buildHighScores()
     })
-    this.start = new Button(-10, 665, "play", () => {
+    this.start = new Button(60, 675, "play", () => {
       scene.scene.start("gameScene")
     })
     if (submission) {
       buildHighScores()
     }
+    distance = 0;
   },
 
   update: function () {
@@ -75,15 +76,21 @@ let titleScene = new Phaser.Class({
 });
 
 function buildHighScores() {
-  scene.loading = scene.add.text(400, 300, "Loading . . .", {
-    fontFamily: 'myFont',
-    fontSize: "32px",
-    align: "center",
-    stroke: '#330030',
-    strokeThickness: 4
-  });
+  scene.loading = scene.add.bitmapText(
+    700,
+    200,
+    "normal",
+    "Loading . . .",
+    64
+  );
   scene.loading.setOrigin(.5)  
-  scene.scores = [] 
+  if (scene.scoreItems) {
+    scene.scoreItems.forEach((score) => {
+      score.destroy()
+    })
+  } else {
+    scene.scoreItems = [] 
+  }
   if (submission) {
     $.ajax({
       type: "POST",
@@ -94,12 +101,12 @@ function buildHighScores() {
         scene.loading.visible = false
         res.scores.forEach(function (score, i) {
           let item = new ScoreItem(415, 50 + i * 30, i + 1, score.name, score.score).setDepth(4);
-          scene.scores.push(item);
+          scene.scoreItems.push(item);
           scene.add.existing(item);
         });
         if (res.position) {
           let item = new ScoreItem(415, 50 + 310, res.position, res.name, res.score).setDepth(4)
-          scene.scores.push(item)
+          scene.scoreItems.push(item)
           scene.add.existing(item);
         }
       },
@@ -121,7 +128,7 @@ function buildHighScores() {
             score.score
           ).setDepth(4);
           scene.add.existing(item);
-          scene.scores.push(item);
+          scene.scoreItems.push(item);
         });
       },
     });
