@@ -8,6 +8,7 @@ class BikelaneSpawner {
     this.enemySpawnMilestone = grateFrequency;
     this.obsticleFrequency = baseFrequency
     this.nextObsticle = Random.between(baseFrequency / 4, baseFrequency)
+    this.nextCooldown = 0
   }
 
   update() {
@@ -26,7 +27,11 @@ class BikelaneSpawner {
   }
 
   spawn(enemyIndex) {
+    if (this.nextCooldown > distance) {
+      return
+    }
     const enemy = new Enemy(3, enemyIndex);
     scene.enemies.push(enemy);
+    this.nextCooldown = distance + 1000
   }
 }
