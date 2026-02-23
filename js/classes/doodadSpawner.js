@@ -9,7 +9,6 @@ class DoodadSpawner {
     if (distance >= this.benchCooldown) {
       this.spawn("bench", 1);
       this.benchCooldown += 7000;
-      console.log('spawning bnehc')
       if (Random.oneIn(2)) {
         const lamp = this.spawn("lamp", 1)
         if (Random.oneIn(2)) {

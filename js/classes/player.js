@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Container {
     this.setDepth(LANE_POSITIONS[3].depth - 1)
     this.sprite = scene.add.sprite(0, 0, "bike")
     this.sprite.setOrigin(0, 1)
+    this.jumpedObjects = 0
 
     this.invincable = false
     this.alive = true
@@ -173,6 +174,11 @@ class Player extends Phaser.GameObjects.Container {
     }
 
     if (this.jumpState === 0) {
+      if (this.jumpedObjects > 0) {
+        scene.score.hopBonus(this.jumpedObjects * 2500)
+        this.jumpedObjects = 0
+        console.log('bonius!!')
+      }
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
         if (this.lane > 1) {
@@ -255,6 +261,7 @@ class Player extends Phaser.GameObjects.Container {
   }
 
   takeDamage() {
+    this.jumpedObjects = 0
     if (this.invincable) {
       return;
     }
@@ -302,10 +309,10 @@ class Player extends Phaser.GameObjects.Container {
       value: animal,
       fontSize: 32,
       maxLength: 12,
-      onEnter: (value) => {
+      onEnter: () => {
         submission = btoa(
           '{ "game": "bikelane", "name": "' +
-            value +
+            animal +
             '", "score": ' +
             scene.score.score +
             "}"
@@ -322,7 +329,7 @@ class Player extends Phaser.GameObjects.Container {
     new Button(GAME_WIDTH / 4, 400, "submit", () => {
         submission = btoa(
           '{ "game": "bikelane", "name": "' +
-            scene.nameInput.value +
+            animal +
             '", "score": ' +
             scene.score.score +
             "}"

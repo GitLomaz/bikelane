@@ -63,7 +63,7 @@ let gameScene = new Phaser.Class({
     distance = 0;
   },
 
-  update: function (time) {
+  update: function () {
     this.bg.update()
     this.bikelaneSpawner.update()
     this.carSpawner.update()

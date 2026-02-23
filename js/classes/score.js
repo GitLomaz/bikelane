@@ -73,7 +73,7 @@ class Score extends Phaser.GameObjects.Container {
     scene.tweens.add({
       targets: floatText,
       y: up ? floatText.y - 50 :  floatText.y + 50,
-      duration: 300,
+      duration: 500,
       alpha: 0,
       ease: "Quad.easeOut",
       onComplete: () => {
@@ -88,5 +88,30 @@ class Score extends Phaser.GameObjects.Container {
         yoyo: true
       })
     }
+  }
+
+  hopBonus(value) {
+    if (value === 0) {
+      return
+    }
+    this.score += value
+    const floatText = scene.add.bitmapText(-360, 380, "lightNumbers", value, 32); 
+    this.add(floatText)
+    scene.tweens.add({
+      targets: floatText,
+      y: floatText.y - 50,
+      duration: 500,
+      alpha: 0,
+      ease: "Quad.easeOut",
+      onComplete: () => {
+        floatText.destroy()
+      }
+    });
+    scene.tweens.add({
+      targets: this.scoreText,
+      scale: 1.25,
+      duration: 100,
+      yoyo: true
+    })
   }
 }

@@ -220,6 +220,7 @@ class CanvasInput extends Phaser.GameObjects.Container {
     const display = this.value.length > 0 ? this.value : this.placeholder;
 
     this.text.setText(display);
+    animal = this.text.text
 
     // Optional: tint placeholder differently (only works if your bitmap font supports tinting well)
     if (this.value.length === 0 && this.placeholder) {

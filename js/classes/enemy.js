@@ -7,6 +7,7 @@ class Enemy extends Phaser.GameObjects.Container {
     this.size = 4 // 4 == can't jump over
     scene.add.existing(this);
     let imageName = "vehicle"
+    this.jumped = false
     let roll = Random.between (1, 20)
     switch (roll) {
       case 1:
@@ -93,7 +94,7 @@ class Enemy extends Phaser.GameObjects.Container {
     // Check collision with player
     this.checkCollisionWithPlayer();
     if(this.blip) {
-      this.blip.ping(this.x)
+      this.blip.ping(this.x + this.width / 2)
     }
 
     
@@ -124,19 +125,25 @@ class Enemy extends Phaser.GameObjects.Container {
           case 1:
             if (![...smallHeights, ...MediumHeights, ...largeHeights].includes(frame)) {
               this.onCollisionWithPlayer();
+              return
             }
             break;
           case 2:
             if (![...MediumHeights, ...largeHeights].includes(frame)) {
               this.onCollisionWithPlayer();
+              return
             }
             break;
           case 3:
           case 4:
             this.onCollisionWithPlayer();
-            break;
+              return
           default:
             break;
+        }
+        if (!this.jumped) {
+          this.jumped = true;
+          scene.player.jumpedObjects++;
         }
       }
     }
