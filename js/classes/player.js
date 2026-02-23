@@ -238,7 +238,7 @@ class Player extends Phaser.GameObjects.Container {
       y: targetPosition.y,
       scaleX: targetPosition.scale,
       scaleY: targetPosition.scale,
-      duration: 300,
+      duration: 200,
       ease: "Quad.easeInOut",
       onUpdate: (tween) => {
       if (tween.progress >= 0.5 && !tween.hasReachedMidpoint) {
