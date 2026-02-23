@@ -48,7 +48,6 @@ let gameScene = new Phaser.Class({
   create: function () {
     scene = this;
     this.bg = new BG();
-    new Radar();
     this.player = new Player();
     this.score = new Score();
 
