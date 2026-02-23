@@ -40,6 +40,8 @@ class BG extends Phaser.GameObjects.Container {
 
     this.sidewalk.play({ key: 'sidewalk' });
 
+    this.sidewalk.setDepth(3)
+
     // ---- NEW (tiny): same % progress per update ----
     const w5 = scene.textures.get('bg5').getSourceImage().width
     const w4 = scene.textures.get('bg4').getSourceImage().width

@@ -10,7 +10,7 @@ class StaticObject extends Phaser.GameObjects.Container {
       this.setDepth(50)
     } else if (position === 2) { // trees, anchor to top
       this.y = 0
-      this.setDepth(10)
+      this.setDepth(0)
     }
     scene.add.existing(this);
     this.image = image

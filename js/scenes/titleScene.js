@@ -93,12 +93,12 @@ function buildHighScores() {
       success: function (res) {
         scene.loading.visible = false
         res.scores.forEach(function (score, i) {
-          let item = new ScoreItem(415, 50 + i * 30, i + 1, score.name, score.score);
+          let item = new ScoreItem(415, 50 + i * 30, i + 1, score.name, score.score).setDepth(4);
           scene.scores.push(item);
           scene.add.existing(item);
         });
         if (res.position) {
-          let item = new ScoreItem(415, 50 + 310, res.position, res.name, res.score)
+          let item = new ScoreItem(415, 50 + 310, res.position, res.name, res.score).setDepth(4)
           scene.scores.push(item)
           scene.add.existing(item);
         }
@@ -119,7 +119,7 @@ function buildHighScores() {
             i + 1,
             score.name,
             score.score
-          );
+          ).setDepth(4);
           scene.add.existing(item);
           scene.scores.push(item);
         });
