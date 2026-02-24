@@ -197,28 +197,20 @@ class Player extends Phaser.GameObjects.Container {
         setSpeedMod(.3)
         if (this.speedState !== 0) {
           playWithChain(this.sprite, "slowdownStart", ["slowdown"]);
-          // this.sprite.play('slowdownStart');
-          // this.sprite.chain([ 'slowdown' ]);
           this.speedState = 0
         }
       } else if (this.keys.right.isDown || this.keys.D.isDown) {
         setSpeedMod(1.7)
         if (this.speedState !== 2) {
           playWithChain(this.sprite, "sprintStart", ["sprint"]);
-          // this.sprite.play('sprintStart');
-          // this.sprite.chain([ 'sprint' ]);
           this.speedState = 2
         }
       } else {
         if (this.speedState === 0) {
           playWithChain(this.sprite, "slowdownEnd", ["normal"]);
-          // this.sprite.play({ key: "slowdownEnd"})
-          // this.sprite.chain([ 'normal' ]);
           this.speedState = 1
         } else if (this.speedState === 2) {
           playWithChain(this.sprite, "sprintEnd", ["normal"]);
-          // this.sprite.play({ key: "sprintEnd"})
-          // this.sprite.chain([ 'normal' ]);
           this.speedState = 1
         }
         setSpeedMod(1)
