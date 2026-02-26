@@ -18,7 +18,7 @@ class Score extends Phaser.GameObjects.Container {
   }
 
   update() {
-    this.scoreText.setText(this.score)
+    this.scoreText.setText(displayNumber(this.score))
     if (!scene.player.alive) {
       this.resetBonus()
       this.scoreBonusText.setText("")
@@ -26,10 +26,10 @@ class Score extends Phaser.GameObjects.Container {
     }
     let scoreString = ""
     if (this.scoreBonusOne > 0) {
-      scoreString += "+ " + this.scoreBonusOne + " %"
+      scoreString += "+ " + displayNumber(this.scoreBonusOne) + " %"
     }
     if (this.scoreBonusTwo > 0) {
-      scoreString += "+ " + this.scoreBonusTwo + " &"
+      scoreString += "+ " + displayNumber(this.scoreBonusTwo) + " &"
     }
     this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {

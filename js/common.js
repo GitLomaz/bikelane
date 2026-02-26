@@ -34,5 +34,6 @@ function playWithChain(sprite, startKey, chainKeys = []) {
 }
 
 function displayNumber(y) {
-  return y.toLocaleString("en-US");
+  // return y.toLocaleString("en-US");
+  return y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
