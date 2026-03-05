@@ -94,7 +94,7 @@ function buildHighScores() {
   if (submission) {
     $.ajax({
       type: "POST",
-      url: "https://us-dev.nightscapes.io/scores/submitScores.php",
+      url: "https://scores.lomazgames.com/scores",
       data: { data: submission },
       dataType: "json",
       success: function (res) {
@@ -114,7 +114,7 @@ function buildHighScores() {
     submission = false
   } else {
     $.ajax({
-      url: "https://us-dev.nightscapes.io/scores/submitScores.php?game=bikelane",
+      url: "https://scores.lomazgames.com/scores?game=bikelane",
       type: "GET",
       dataType: "json",
       success: function (res) {
