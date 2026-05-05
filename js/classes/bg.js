@@ -39,6 +39,9 @@ class BG extends Phaser.GameObjects.Container {
     this.bg12 = scene.add.image(GAME_WIDTH, 210, "a-f-1").setOrigin(0)
     this.bg11 = scene.add.image(GAME_WIDTH + 110, 210, "a-n-1").setOrigin(0)
 
+    this.bg122 = scene.add.image(GAME_WIDTH + 1500, 210, "c-f-1").setOrigin(0)
+    this.bg112 = scene.add.image(GAME_WIDTH + 1610, 210, "c-n-1").setOrigin(0)
+
     this.sidewalk = scene.add.sprite(0, 497, "sidewalk")
     this.sidewalk.setOrigin(0)
 
@@ -98,8 +101,14 @@ class BG extends Phaser.GameObjects.Container {
 
     this.bg11.x -= this.v11 * speedMod
     this.bg12.x -= this.v12 * speedMod
+
+    this.bg112.x -= this.v11 * speedMod
+    this.bg122.x -= this.v12 * speedMod
     if (this.bg11.x < -1900) {
       this.resetMiddleground()
+    }
+    if (this.bg112.x < -1900) {
+      this.resetMiddlegroundDouble()
     }
   }
 
@@ -109,7 +118,13 @@ class BG extends Phaser.GameObjects.Container {
     const combo = Phaser.Utils.Array.GetRandom(this.middlegroundCombos)
     this.bg11.setTexture(combo[1])
     this.bg12.setTexture(combo[0])
-    console.log("combo", combo)
-    console.log(this.bg11.width, this.bg12.width)
+  }
+
+  resetMiddlegroundDouble() {
+    this.bg112.x = GAME_WIDTH + 110
+    this.bg122.x = GAME_WIDTH
+    const combo = Phaser.Utils.Array.GetRandom(this.middlegroundCombos)
+    this.bg112.setTexture(combo[1])
+    this.bg122.setTexture(combo[0])
   }
 }
