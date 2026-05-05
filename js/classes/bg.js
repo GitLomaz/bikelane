@@ -33,6 +33,9 @@ class BG extends Phaser.GameObjects.Container {
     this.bg3 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg3').setOrigin(0)
     this.bg2 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg2').setOrigin(0)
 
+    // new rectangle of #101930
+    this.bg13 = scene.add.rectangle(0, 415, GAME_WIDTH, 100, 0x101930).setOrigin(0)
+
     this.bg12 = scene.add.image(GAME_WIDTH, 225, "a-f-1").setOrigin(0)
     this.bg11 = scene.add.image(GAME_WIDTH + 110, 225, "a-n-1").setOrigin(0)
 
