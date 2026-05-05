@@ -107,8 +107,8 @@ class BG extends Phaser.GameObjects.Container {
     this.bg11.x = GAME_WIDTH + 110
     this.bg12.x = GAME_WIDTH
     const combo = Phaser.Utils.Array.GetRandom(this.middlegroundCombos)
-    this.bg11.setTexture(combo[0])
-    this.bg12.setTexture(combo[1])
+    this.bg11.setTexture(combo[1])
+    this.bg12.setTexture(combo[0])
     console.log("combo", combo)
     console.log(this.bg11.width, this.bg12.width)
   }
