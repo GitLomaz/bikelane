@@ -87,7 +87,7 @@ let titleScene = new Phaser.Class({
     // Auto-hide UI after 60 seconds of inactivity
     this.uiVisible = true;
     this.inactivityTimer = 0;
-    this.inactivityDelay = 15000; // 60 seconds in milliseconds
+    this.inactivityDelay = 7000; // 60 seconds in milliseconds
     
     // Setup mouse movement listener
     this.input.on('pointermove', () => {
