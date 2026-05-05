@@ -83,15 +83,116 @@ let titleScene = new Phaser.Class({
       buildHighScores()
     }
     distance = 0;
+    
+    // Auto-hide UI after 60 seconds of inactivity
+    this.uiVisible = true;
+    this.inactivityTimer = 0;
+    this.inactivityDelay = 15000; // 60 seconds in milliseconds
+    
+    // Setup mouse movement listener
+    this.input.on('pointermove', () => {
+      this.resetInactivityTimer();
+    });
+  },
+  
+  resetInactivityTimer: function() {
+    this.inactivityTimer = 0;
+    if (!this.uiVisible) {
+      this.showUI();
+    }
+  },
+  
+  hideUI: function() {
+    if (this.uiVisible) {
+      this.uiVisible = false;
+      if (this.start) {
+        this.tweens.add({
+          targets: [this.start],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.scores) {
+        this.tweens.add({
+          targets: [this.scores],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.scoreItems) {
+        this.tweens.add({
+          targets: this.scoreItems,
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.loading) {
+        this.tweens.add({
+          targets: this.loading,
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+    }
+  },
+  
+  showUI: function() {
+    if (!this.uiVisible) {
+      this.uiVisible = true;
+      if (this.start) {
+        this.tweens.add({
+          targets: [this.start],
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.scores) {
+        this.tweens.add({
+          targets: [this.scores],
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.scoreItems) {
+        this.tweens.add({
+          targets: this.scoreItems,
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.loading) {
+        this.tweens.add({
+          targets: this.loading,
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+    }
   },
 
-  update: function () {
+  update: function (time, delta) {
     distance += bikeSpeed * speedMod
     this.doodadSpawner.update()
     this.bg.update()
     scene.doodads.forEach((doodad) => {
       doodad.update()
     })
+    
+    // Check inactivity timer
+    if (this.uiVisible) {
+      this.inactivityTimer += delta;
+      if (this.inactivityTimer >= this.inactivityDelay) {
+        this.hideUI();
+      }
+    }
   },
 });
 
