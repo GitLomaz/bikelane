@@ -16,6 +16,26 @@ let titleScene = new Phaser.Class({
     this.load.image("bg4", "images/bg4.png");
     this.load.image("bg5", "images/bg5.png");
 
+    this.load.image("a-f-1", "images/a-f-1.png");
+    this.load.image("a-n-1", "images/a-n-1.png");
+    this.load.image("b-f-1", "images/b-f-1.png");
+    this.load.image("b-n-1", "images/b-n-1.png");
+    this.load.image("c-f-1", "images/c-f-1.png");
+    this.load.image("c-n-1", "images/c-n-1.png");
+    this.load.image("d-f-1", "images/d-f-1.png");
+    this.load.image("d-f-2", "images/d-f-2.png");
+    this.load.image("d-f-3", "images/d-f-3.png");
+    this.load.image("d-n-1", "images/d-n-1.png");
+    this.load.image("d-n-2", "images/d-n-2.png");
+    this.load.image("d-n-3", "images/d-n-3.png");
+    this.load.image("e-f-1", "images/e-f-1.png");
+    this.load.image("e-f-2", "images/e-f-2.png");
+    this.load.image("e-n-1", "images/e-n-1.png");
+    this.load.image("e-n-2", "images/e-n-2.png");
+    this.load.image("f-f-1", "images/f-f-1.png");
+    this.load.image("f-f-2", "images/f-f-2.png");
+    this.load.image("f-n-1", "images/f-n-1.png");
+    this.load.image("f-n-2", "images/f-n-2.png");
 
     this.load.image("lamp", "images/lamp.png");
     this.load.image("tree1", "images/tree1.png");

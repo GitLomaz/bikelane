@@ -3,6 +3,29 @@ class BG extends Phaser.GameObjects.Container {
     super(scene, 0, 0)
     scene.add.existing(this);
 
+    this.middlegroundCombos = [
+      ["a-f-1", "a-n-1"],
+      ["b-f-1", "b-n-1"],
+      ["c-f-1", "c-n-1"],
+      ["d-f-1", "d-n-1"],
+      ["d-f-1", "d-n-2"],
+      ["d-f-1", "d-n-3"],
+      ["d-f-2", "d-n-1"],
+      ["d-f-2", "d-n-2"],
+      ["d-f-2", "d-n-3"],
+      ["d-f-3", "d-n-1"],
+      ["d-f-3", "d-n-2"],
+      ["d-f-3", "d-n-3"],
+      ["e-f-1", "e-n-1"],
+      ["e-f-1", "e-n-2"],
+      ["e-f-2", "e-n-1"],
+      ["e-f-2", "e-n-2"],
+      ["f-f-1", "f-n-1"],
+      ["f-f-1", "f-n-2"],
+      ["f-f-2", "f-n-1"],
+      ["f-f-2", "f-n-2"],
+    ]
+
     this.bg = scene.add.image(0, 0, "bg").setOrigin(0)
 
     this.bg5 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg5').setOrigin(0)
@@ -10,23 +33,8 @@ class BG extends Phaser.GameObjects.Container {
     this.bg3 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg3').setOrigin(0)
     this.bg2 = scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg2').setOrigin(0)
 
-    // -440.4117647059947 -373.8823529411329 -307.3529411763874 -240.82352941174202
-
-    // this.bg5.tilePositionX -= GAME_WIDTH / 2 + 440
-    // this.bg4.tilePositionX -= GAME_WIDTH / 2 + 373
-    // this.bg3.tilePositionX -= GAME_WIDTH / 2 + 307
-    // this.bg2.tilePositionX -= GAME_WIDTH / 2 + 240
-
-    // this.bg5.tilePositionX -= GAME_WIDTH / 2
-    // this.bg4.tilePositionX -= GAME_WIDTH / 2
-    // this.bg3.tilePositionX -= GAME_WIDTH / 2
-    // this.bg2.tilePositionX -= GAME_WIDTH / 2
-
-
-    // this.bg5.tilePositionX = -440
-    // this.bg4.tilePositionX = -373
-    // this.bg3.tilePositionX = -307
-    // this.bg2.tilePositionX = -240
+    this.bg12 = scene.add.image(GAME_WIDTH, 225, "a-f-1").setOrigin(0)
+    this.bg11 = scene.add.image(GAME_WIDTH + 110, 225, "a-n-1").setOrigin(0)
 
     this.sidewalk = scene.add.sprite(0, 497, "sidewalk")
     this.sidewalk.setOrigin(0)
@@ -57,6 +65,9 @@ class BG extends Phaser.GameObjects.Container {
     this.v3 = this.v5 * (w3 / w5)
     this.v2 = this.v5 * (w2 / w5)
 
+    this.v11 = (1280 + GAME_HEIGHT) / 630 
+    this.v12 = (1280 + GAME_HEIGHT) / 740
+
     
     const fps = 60
     const seconds = - 60
@@ -82,6 +93,20 @@ class BG extends Phaser.GameObjects.Container {
     this.bg3.tilePositionX += this.v3 * speedMod
     this.bg2.tilePositionX += this.v2 * speedMod
 
-    // console.log(this.bg5.tilePositionX + ' ' + this.bg4.tilePositionX + ' ' + this.bg3.tilePositionX + ' ' + this.bg2.tilePositionX)
+    this.bg11.x -= this.v11 * speedMod
+    this.bg12.x -= this.v12 * speedMod
+    if (this.bg11.x < -1900) {
+      this.resetMiddleground()
+    }
+  }
+
+  resetMiddleground() {
+    this.bg11.x = GAME_WIDTH + 110
+    this.bg12.x = GAME_WIDTH
+    const combo = Phaser.Utils.Array.GetRandom(this.middlegroundCombos)
+    this.bg11.setTexture(combo[0])
+    this.bg12.setTexture(combo[1])
+    console.log("combo", combo)
+    console.log(this.bg11.width, this.bg12.width)
   }
 }
