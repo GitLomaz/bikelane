@@ -47,6 +47,7 @@ let gameScene = new Phaser.Class({
 
   create: function () {
     scene = this;
+    // this.textures.get('normal').setFilter(Phaser.Textures.FilterMode.NEAREST);
     this.bg = new BG();
     this.player = new Player();
     this.score = new Score();

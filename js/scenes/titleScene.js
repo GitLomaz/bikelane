@@ -65,6 +65,7 @@ let titleScene = new Phaser.Class({
     this.load.bitmapFont("darkNumbers", "fonts/font.png", "fonts/dark.fnt");
     this.load.bitmapFont("lightNumbers",  "fonts/font.png", "fonts/light.fnt");
     this.load.bitmapFont("normal",  "fonts/font.png", "fonts/normal.fnt");
+    this.load.bitmapFont("large",  "fonts/font2.png", "fonts/large.fnt");
   },
 
   create: function () {
@@ -87,7 +88,7 @@ let titleScene = new Phaser.Class({
     // Auto-hide UI after 60 seconds of inactivity
     this.uiVisible = true;
     this.inactivityTimer = 0;
-    this.inactivityDelay = 7000; // 60 seconds in milliseconds
+    this.inactivityDelay = 7 * 1000
     
     // Setup mouse movement listener
     this.input.on('pointermove', () => {

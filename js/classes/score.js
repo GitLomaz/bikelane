@@ -1,16 +1,17 @@
 class Score extends Phaser.GameObjects.Container {
   constructor() {
     // Define lane Y positions (matching player lanes)
-    super(scene, GAME_WIDTH / 2, 50);
+    super(scene, GAME_WIDTH / 2, 10);
     this.score = 0
     this.scoreBonusOne = 0
     this.scoreBonusTwo = 0
     this.scoreBonusModOne = 2
     this.scoreBonusModTwo = 4
 
-    this.scoreText = scene.add.bitmapText(0, 0, "normal", this.score, 32);
-    this.scoreText.setOrigin(1, 0)
-    this.scoreBonusText = scene.add.bitmapText(10, 0, "normal", this.score, 32);    
+    this.scoreText = scene.add.bitmapText(0, 0, "large", this.score, 64);
+    this.scoreText.setOrigin(.5, 0)
+    this.scoreBonusText = scene.add.bitmapText(0, 30, "normal", this.score, 32);  
+    this.scoreBonusText.setOrigin(.5, 0)  
     this.add(this.scoreText)
     this.add(this.scoreBonusText)
     this.setDepth(1000)
@@ -26,10 +27,10 @@ class Score extends Phaser.GameObjects.Container {
     }
     let scoreString = ""
     if (this.scoreBonusOne > 0) {
-      scoreString += "+ " + displayNumber(this.scoreBonusOne) + " %"
+      scoreString += "\r\n+ " + displayNumber(this.scoreBonusOne) + " %"
     }
     if (this.scoreBonusTwo > 0) {
-      scoreString += "+ " + displayNumber(this.scoreBonusTwo) + " &"
+      scoreString += "\r\n+ " + displayNumber(this.scoreBonusTwo) + " &"
     }
     this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {
@@ -62,13 +63,7 @@ class Score extends Phaser.GameObjects.Container {
       return
     }
     
-    const floatText = scene.add.bitmapText(10, 0, up ? "lightNumbers" : "darkNumbers", value, 32); 
-    // const floatText = scene.add.text(10, 0,value, {
-    //   fontFamily: 'myFont',
-    //   fontSize: "32px",
-    //   align: "center",
-    //   color: up ? '#00FF00' : '#FF0000'
-    // })
+    const floatText = scene.add.bitmapText(180, 0, up ? "lightNumbers" : "darkNumbers", value, 64); 
     this.add(floatText)
     scene.tweens.add({
       targets: floatText,
