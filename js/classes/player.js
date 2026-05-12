@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Container {
     this.setDepth(LANE_POSITIONS[3].depth - 1)
     this.sprite = scene.add.sprite(0, 0, "bike")
     this.sprite.setOrigin(0, 1)
+    this.stamina = 100
     this.jumpedObjects = 0
 
     this.invincable = false
@@ -194,18 +195,24 @@ class Player extends Phaser.GameObjects.Container {
       
       // Left/Right movement (smooth)
       if (this.keys.left.isDown || this.keys.A.isDown) {
+        console.log('regen fast')
+        this.stamina = Math.min(100, this.stamina + 0.3 * deltaMultiplier)
         setSpeedMod(.3)
         if (this.speedState !== 0) {
           playWithChain(this.sprite, "slowdownStart", ["slowdown"]);
           this.speedState = 0
         }
       } else if (this.keys.right.isDown || this.keys.D.isDown) {
+        console.log('consume fast')
+        this.stamina = Math.max(0, this.stamina - 0.3 * deltaMultiplier)
         setSpeedMod(1.7)
         if (this.speedState !== 2) {
           playWithChain(this.sprite, "sprintStart", ["sprint"]);
           this.speedState = 2
         }
       } else {
+        console.log('regen slow')
+        this.stamina = Math.min(100, this.stamina + 0.1 * deltaMultiplier)
         if (this.speedState === 0) {
           playWithChain(this.sprite, "slowdownEnd", ["normal"]);
           this.speedState = 1

@@ -62,7 +62,7 @@ let gameScene = new Phaser.Class({
     this.carSpawner = new CarSpawner()
     distance = 0;
 
-    this.fpsText = this.add.text(10, 10, 'FPS: 0', {
+    this.staminaText = this.add.text(10, 10, 'stamina: 0', {
       fontSize: '20px',
       color: '#00ff00'
     });
@@ -73,10 +73,7 @@ let gameScene = new Phaser.Class({
     // Normalize delta to 60fps (16.67ms per frame)
     // This makes the game run at consistent speed regardless of frame rate
     const deltaMultiplier = delta / 16.67;
-    
-    this.fpsText.setText(
-      `FPS: ${Math.round(this.game.loop.actualFps)}`
-    );
+    this.staminaText.setText(`stamina: ${Math.round(this.player.stamina)}%`);
     this.bg.update(deltaMultiplier)
     this.bikelaneSpawner.update(deltaMultiplier)
     this.carSpawner.update(deltaMultiplier)
