@@ -125,6 +125,7 @@ class Player extends Phaser.GameObjects.Container {
     );
 
     this.lifeCounter = new LifeCounter();
+    this.staminaBar = new StaminaBar();
   }
 
   setupInput() {
@@ -204,11 +205,15 @@ class Player extends Phaser.GameObjects.Container {
         }
       } else if (this.keys.right.isDown || this.keys.D.isDown) {
         console.log('consume fast')
-        this.stamina = Math.max(0, this.stamina - 0.3 * deltaMultiplier)
-        setSpeedMod(1.7)
-        if (this.speedState !== 2) {
+        this.stamina = Math.max(0, this.stamina - 0.2 * deltaMultiplier)
+        if (this.speedState !== 2 && this.stamina > 0) {
+          setSpeedMod(1.7)
           playWithChain(this.sprite, "sprintStart", ["sprint"]);
           this.speedState = 2
+        }  else if (this.stamina === 0 && this.speedState === 2) {
+          playWithChain(this.sprite, "sprintEnd", ["normal"]);
+          this.speedState = 1
+          setSpeedMod(1)
         }
       } else {
         console.log('regen slow')
@@ -222,6 +227,8 @@ class Player extends Phaser.GameObjects.Container {
         }
         setSpeedMod(1)
       }
+    
+      if (this.staminaBar) this.staminaBar.update(this.stamina);
     }
   }
 

@@ -12,6 +12,7 @@ class BikelaneSpawner {
   }
 
   update(deltaMultiplier = 1) {
+    return;
     if (distance >= this.enemySpawnMilestone) {
       this.spawn(1);
       this.enemySpawnMilestone += grateFrequency;
