@@ -69,23 +69,27 @@ let gameScene = new Phaser.Class({
 
   },
 
-  update: function () {
+  update: function (time, delta) {
+    // Normalize delta to 60fps (16.67ms per frame)
+    // This makes the game run at consistent speed regardless of frame rate
+    const deltaMultiplier = delta / 16.67;
+    
     this.fpsText.setText(
       `FPS: ${Math.round(this.game.loop.actualFps)}`
     );
-    this.bg.update()
-    this.bikelaneSpawner.update()
-    this.carSpawner.update()
-    this.score.update()
-    this.doodadSpawner.update()
+    this.bg.update(deltaMultiplier)
+    this.bikelaneSpawner.update(deltaMultiplier)
+    this.carSpawner.update(deltaMultiplier)
+    this.score.update(deltaMultiplier)
+    this.doodadSpawner.update(deltaMultiplier)
     this.doodads.forEach((doodad) => {
-      doodad.update()
+      doodad.update(deltaMultiplier)
     })
     
     // Update all enemies
     this.enemies.forEach((enemy, index) => {
       if (enemy.active) {
-        enemy.update();
+        enemy.update(deltaMultiplier);
       } else {
         // Remove destroyed enemies from the list
         this.enemies.splice(index, 1);

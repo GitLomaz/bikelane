@@ -19,11 +19,11 @@ class StaticObject extends Phaser.GameObjects.Container {
     this.add(this.sprite)
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     switch (this.position) {
       case 1:
       case 0:
-        this.x -= bikeSpeed * 1.15
+        this.x -= bikeSpeed * 1.15 * deltaMultiplier
          if (this.image === "bench") {
           if (this.x > GAME_WIDTH / 5 * 4) {
             this.sprite.setFrame(0)
@@ -39,7 +39,7 @@ class StaticObject extends Phaser.GameObjects.Container {
         }
         break;
       case 2:
-        this.x -= bikeSpeed * .55
+        this.x -= bikeSpeed * .55 * deltaMultiplier
         break;
     
       default:

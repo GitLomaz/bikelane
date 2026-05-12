@@ -90,14 +90,14 @@ class BG extends Phaser.GameObjects.Container {
     
   }
 
-  update() {
-    this.bg5.tilePositionX += this.v5 * speedMod
-    this.bg4.tilePositionX += this.v4 * speedMod
-    this.bg3.tilePositionX += this.v3 * speedMod
-    this.bg2.tilePositionX += this.v2 * speedMod
+  update(deltaMultiplier = 1) {
+    this.bg5.tilePositionX += this.v5 * speedMod * deltaMultiplier
+    this.bg4.tilePositionX += this.v4 * speedMod * deltaMultiplier
+    this.bg3.tilePositionX += this.v3 * speedMod * deltaMultiplier
+    this.bg2.tilePositionX += this.v2 * speedMod * deltaMultiplier
 
-    this.bg11.x -= this.v11 * speedMod
-    this.bg12.x -= this.v12 * speedMod
+    this.bg11.x -= this.v11 * speedMod * deltaMultiplier
+    this.bg12.x -= this.v12 * speedMod * deltaMultiplier
     if (this.bg11.x < -1900) {
       this.resetMiddleground()
     }

@@ -11,7 +11,7 @@ class BikelaneSpawner {
     this.nextCooldown = 0
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     if (distance >= this.enemySpawnMilestone) {
       this.spawn(1);
       this.enemySpawnMilestone += grateFrequency;
@@ -21,7 +21,7 @@ class BikelaneSpawner {
       this.nextObsticle = distance + Random.between(this.obsticleFrequency / 4, this.obsticleFrequency)
     }
     if (this.obsticleFrequency > minFrequency) {
-      this.obsticleFrequency -= frequencyDegridation
+      this.obsticleFrequency -= frequencyDegridation * deltaMultiplier
     }
 
   }

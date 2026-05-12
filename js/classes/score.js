@@ -18,7 +18,7 @@ class Score extends Phaser.GameObjects.Container {
     scene.add.existing(this);
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     this.scoreText.setText(displayNumber(this.score))
     if (!scene.player.alive) {
       this.resetBonus()
@@ -34,12 +34,12 @@ class Score extends Phaser.GameObjects.Container {
     }
     this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {
-      this.score += bikeSpeed
+      this.score += bikeSpeed * deltaMultiplier
       this.scoreBonusText.setText("")
     } else if (scene.player.lane === 2) {
-      this.scoreBonusOne += bikeSpeed
+      this.scoreBonusOne += bikeSpeed * deltaMultiplier
     } else if (scene.player.lane === 1) {
-      this.scoreBonusTwo += bikeSpeed
+      this.scoreBonusTwo += bikeSpeed * deltaMultiplier
     }
   }
 

@@ -132,11 +132,11 @@ class Player extends Phaser.GameObjects.Container {
     this.keys = { ...keys, ...wasdKeys };
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     if (!this.alive) {
       return
     }
-    distance += bikeSpeed * speedMod
+    distance += bikeSpeed * speedMod * deltaMultiplier
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
       switch (this.speedState) {
         case 0:
@@ -151,8 +151,8 @@ class Player extends Phaser.GameObjects.Container {
         default:
           break;
       }
-      this.jumpFrames++
-    } else if (this.jumpFrames === 4 * 4 && this.jumpState === 0) {
+      this.jumpFrames += deltaMultiplier
+    } else if (this.jumpFrames >= 4 * 4 && this.jumpState === 0) {
       switch (this.speedState) {
         case 0:
           playWithChain(this.sprite, "hopTwoShort", ['slowdownStart', 'slowdown']);

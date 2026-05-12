@@ -88,8 +88,8 @@ class Enemy extends Phaser.GameObjects.Container {
     this.baseSpeed = this.speed
   }
 
-  update() {
-    this.x -= this.speed + bikeSpeed
+  update(deltaMultiplier = 1) {
+    this.x -= (this.speed + bikeSpeed) * deltaMultiplier
     
     // Check collision with player
     this.checkCollisionWithPlayer();

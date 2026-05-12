@@ -5,7 +5,7 @@ class DoodadSpawner {
     this.farTreeCooldown = 3000
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     if (distance >= this.benchCooldown) {
       this.spawn("bench", 1);
       this.benchCooldown += 7000;

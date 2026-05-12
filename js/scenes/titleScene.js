@@ -183,11 +183,14 @@ let titleScene = new Phaser.Class({
   },
 
   update: function (time, delta) {
-    distance += bikeSpeed * speedMod
-    this.doodadSpawner.update()
-    this.bg.update()
+    // Normalize delta to 60fps (16.67ms per frame)
+    const deltaMultiplier = delta / 16.67;
+    
+    distance += bikeSpeed * speedMod * deltaMultiplier
+    this.doodadSpawner.update(deltaMultiplier)
+    this.bg.update(deltaMultiplier)
     scene.doodads.forEach((doodad) => {
-      doodad.update()
+      doodad.update(deltaMultiplier)
     })
     
     // Check inactivity timer

@@ -8,13 +8,13 @@ class CarSpawner {
     this.nextObsticle = Random.between(carBaseFrequency / 4, carBaseFrequency)
   }
 
-  update() {
+  update(deltaMultiplier = 1) {
     if (distance >= this.nextObsticle) {
       this.spawn();
       this.nextObsticle = distance + Random.between(this.obsticleFrequency / 4, this.obsticleFrequency)
     }
     if (this.obsticleFrequency > carMinFrequency) {
-      this.obsticleFrequency -= frequencyDegridation
+      this.obsticleFrequency -= carFrequencyDegridation * deltaMultiplier
     }
   }
 
