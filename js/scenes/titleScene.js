@@ -75,7 +75,7 @@ let titleScene = new Phaser.Class({
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
     this.buildingScores = false
-    this.version = this.add.bitmapText(10, 10, "normal", "v1.0.0", 16).setDepth(5)
+    this.version = this.add.bitmapText(10, 10, "normal", "v1.1.0", 16).setDepth(5)
     this.scores = new Button(1140, 675, "highscores", () => {
       if (!this.buildingScores) {
         buildHighScores()
