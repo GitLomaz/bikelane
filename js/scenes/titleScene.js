@@ -74,8 +74,11 @@ let titleScene = new Phaser.Class({
     this.player = new DemoPlayer();
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
+    this.buildingScores = false
     this.scores = new Button(1140, 675, "highscores", () => {
-      buildHighScores()
+      if (!this.buildingScores) {
+        buildHighScores()
+      }
     })
     this.start = new Button(60, 675, "play", () => {
       scene.scene.start("gameScene")
@@ -198,6 +201,7 @@ let titleScene = new Phaser.Class({
 });
 
 function buildHighScores() {
+  scene.buildingScores = true
   scene.loading = scene.add.bitmapText(
     700,
     200,
@@ -231,7 +235,11 @@ function buildHighScores() {
           scene.scoreItems.push(item)
           scene.add.existing(item);
         }
+        scene.buildingScores = false
       },
+      finally: function() {
+        scene.buildingScores = false
+      }
     });
     submission = false
   } else {
@@ -252,7 +260,11 @@ function buildHighScores() {
           scene.add.existing(item);
           scene.scoreItems.push(item);
         });
+        scene.buildingScores = false
       },
+      finally: function() {
+        scene.buildingScores = false
+      }
     });
   }
 }

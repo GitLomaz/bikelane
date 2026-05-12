@@ -61,9 +61,18 @@ let gameScene = new Phaser.Class({
     this.bikelaneSpawner = new BikelaneSpawner()
     this.carSpawner = new CarSpawner()
     distance = 0;
+
+    this.fpsText = this.add.text(10, 10, 'FPS: 0', {
+      fontSize: '20px',
+      color: '#00ff00'
+    });
+
   },
 
   update: function () {
+    this.fpsText.setText(
+      `FPS: ${Math.round(this.game.loop.actualFps)}`
+    );
     this.bg.update()
     this.bikelaneSpawner.update()
     this.carSpawner.update()
