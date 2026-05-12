@@ -19,7 +19,10 @@ class Score extends Phaser.GameObjects.Container {
   }
 
   update(deltaMultiplier = 1) {
-    this.scoreText.setText(displayNumber(this.score))
+    // ensure increments are integerized
+    const inc = Math.floor(bikeSpeed * deltaMultiplier)
+
+    this.scoreText.setText(displayNumber(Math.floor(this.score)))
     if (!scene.player.alive) {
       this.resetBonus()
       this.scoreBonusText.setText("")
@@ -27,20 +30,25 @@ class Score extends Phaser.GameObjects.Container {
     }
     let scoreString = ""
     if (this.scoreBonusOne > 0) {
-      scoreString += "\r\n+ " + displayNumber(this.scoreBonusOne) + " %"
+      scoreString += "\r\n+ " + displayNumber(Math.floor(this.scoreBonusOne)) + " %"
     }
     if (this.scoreBonusTwo > 0) {
-      scoreString += "\r\n+ " + displayNumber(this.scoreBonusTwo) + " &"
+      scoreString += "\r\n+ " + displayNumber(Math.floor(this.scoreBonusTwo)) + " &"
     }
     this.scoreBonusText.setText(scoreString)
     if (scene.player.lane === 3) {
-      this.score += bikeSpeed * deltaMultiplier
+      this.score += inc
       this.scoreBonusText.setText("")
     } else if (scene.player.lane === 2) {
-      this.scoreBonusOne += bikeSpeed * deltaMultiplier
+      this.scoreBonusOne += inc
     } else if (scene.player.lane === 1) {
-      this.scoreBonusTwo += bikeSpeed * deltaMultiplier
+      this.scoreBonusTwo += inc
     }
+
+    // keep stored values integers
+    this.score = Math.floor(this.score)
+    this.scoreBonusOne = Math.floor(this.scoreBonusOne)
+    this.scoreBonusTwo = Math.floor(this.scoreBonusTwo)
   }
 
   cashInBonus() {
