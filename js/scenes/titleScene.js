@@ -233,6 +233,9 @@ function buildHighScores() {
       data: { data: submission },
       dataType: "json",
       success: function (res) {
+        if (!scene.loading) {
+          return
+        }
         scene.loading.visible = false
         res.scores.forEach(function (score, i) {
           let item = new ScoreItem(415, 50 + i * 30, i + 1, score.name, score.score).setDepth(4);
