@@ -327,6 +327,8 @@ class Player extends Phaser.GameObjects.Container {
     this.alive = false
     this.staminaBar.fadeOut()
     this.playerBlip.destroy()
+    this.playerAlert.destroy()
+    this.playerHazard.destroy()
     scene.score.scoreText.setOrigin(.5)
     scene.tweens.add({
       targets: this,
