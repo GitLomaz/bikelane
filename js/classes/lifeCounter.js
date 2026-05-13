@@ -16,7 +16,16 @@ class LifeCounter {
     if (this.lives > 0) {
       this.lives--;
       const lostLifeImage = this.lifeImages.pop();
-      lostLifeImage.destroy();
+      scene.tweens.add({
+        targets: lostLifeImage,
+        alpha: 0,
+        y: lostLifeImage.y + 50,
+        duration: 200,
+        ease: 'Quad.easeInOut',
+        onComplete: () => {
+          lostLifeImage.destroy();
+        }
+      });
     }
   }
 

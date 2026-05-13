@@ -20,6 +20,16 @@ class StaminaBar {
     this.draw(100);
   }
 
+  fadeOut() {
+    this.graphics.clear();
+    scene.tweens.add({
+      targets: this.label,
+      alpha: 0,
+      duration: 200,
+      ease: "Quad.easeInOut",
+    });
+  }
+
   draw(value) {
     const g = this.graphics;
     g.clear();
