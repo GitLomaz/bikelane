@@ -104,8 +104,8 @@ class Player extends Phaser.GameObjects.Container {
     this.setupInput();
     scene.events.on("update", () => this.update());
 
-    this.playerBlip = new Blip(20, 40)
-    this.playerBlip.setTintFill(0x00FF00)
+    this.playerBlip = scene.add.sprite(20, 40, 'radarBike').setScrollFactor(0).setDepth(1000)
+    this.playerAlert = scene.add.sprite(20, 40, 'radarAlert').setScrollFactor(0).setDepth(1000)
 
     this.sprite.on(
       Phaser.Animations.Events.ANIMATION_COMPLETE,
@@ -226,6 +226,24 @@ class Player extends Phaser.GameObjects.Container {
     
       if (this.staminaBar) this.staminaBar.update(this.stamina);
     }
+
+    let closestBlipDistance = Infinity
+    scene.enemies.forEach(enemy => {
+      if(enemy.blip && enemy.blip.y > 45) {
+        closestBlipDistance = closestBlipDistance > Math.abs(enemy.blip.y - 45) ? Math.abs(enemy.blip.y - 45) : closestBlipDistance
+      }
+    });
+    if (this.lane === 2 && closestBlipDistance < 200) {  // player blip color
+      this.playerBlip.setFrame(1)
+    } else {
+      this.playerBlip.setFrame(0)
+    }
+
+    if (closestBlipDistance < 400) {
+      this.playerAlert.setAlpha(1)
+    } else {
+      this.playerAlert.setAlpha(0)
+    }
   }
 
   switchLane(newLane) {
@@ -246,6 +264,7 @@ class Player extends Phaser.GameObjects.Container {
       if (tween.progress >= 0.5 && !tween.hasReachedMidpoint) {
         tween.hasReachedMidpoint = true;
         this.onLaneSwitchMidpoint(newLane);
+        this.playerAlert.setFrame(newLane - 1)
       }
       },
       onComplete: () => {

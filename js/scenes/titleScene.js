@@ -56,11 +56,16 @@ let titleScene = new Phaser.Class({
     this.load.image("highscore-over", "images/highscore-over.png");
     this.load.image("play", "images/play.png");
     this.load.image("play-over", "images/play-over.png");
-
+    
+    this.load.image('radarHazard', 'images/radar_hazard.png');
 
     this.load.spritesheet('bench', 'images/bench.png', { frameWidth: 200, frameHeight: 100 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
+
+    this.load.spritesheet('radarAlert', 'images/radar_alert.png', { frameWidth: 17, frameHeight: 32 });
+    this.load.spritesheet('radarBike', 'images/radar_bike.png', { frameWidth: 17, frameHeight: 32 });
+    this.load.spritesheet('radarCar', 'images/radar_car.png', { frameWidth: 17, frameHeight: 32 });
 
     this.load.bitmapFont("darkNumbers", "fonts/font.png", "fonts/dark.fnt");
     this.load.bitmapFont("lightNumbers",  "fonts/font.png", "fonts/light.fnt");
@@ -75,7 +80,7 @@ let titleScene = new Phaser.Class({
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
     this.buildingScores = false
-    this.version = this.add.bitmapText(10, 10, "normal", "v1.3.0", 16).setDepth(5)
+    this.version = this.add.bitmapText(10, 10, "normal", "v1.4.0", 16).setDepth(5)
     this.scores = new Button(1140, 675, "highscores", () => {
       if (!this.buildingScores) {
         buildHighScores()
