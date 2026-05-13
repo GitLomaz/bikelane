@@ -106,6 +106,7 @@ class Player extends Phaser.GameObjects.Container {
 
     this.playerBlip = scene.add.sprite(20, 40, 'radarBike').setScrollFactor(0).setDepth(1000)
     this.playerAlert = scene.add.sprite(20, 40, 'radarAlert').setScrollFactor(0).setDepth(1000)
+    this.playerHazard = scene.add.image(20, 10, 'radarHazard').setScrollFactor(0).setDepth(1000)
 
     this.sprite.on(
       Phaser.Animations.Events.ANIMATION_COMPLETE,
@@ -227,10 +228,18 @@ class Player extends Phaser.GameObjects.Container {
       if (this.staminaBar) this.staminaBar.update(this.stamina);
     }
 
+    // Radar junk
     let closestBlipDistance = Infinity
+    let closestEnemyDistance = Infinity
     scene.enemies.forEach(enemy => {
       if(enemy.blip && enemy.blip.y > 45) {
         closestBlipDistance = closestBlipDistance > Math.abs(enemy.blip.y - 45) ? Math.abs(enemy.blip.y - 45) : closestBlipDistance
+      }
+      if (enemy.lane === this.lane) {
+        const distance = enemy.x - this.x
+        if (distance > 0) {
+          closestEnemyDistance = closestEnemyDistance > distance ? distance : closestEnemyDistance
+        }
       }
     });
     if (this.lane === 2 && closestBlipDistance < 200) {  // player blip color
@@ -243,6 +252,12 @@ class Player extends Phaser.GameObjects.Container {
       this.playerAlert.setAlpha(1)
     } else {
       this.playerAlert.setAlpha(0)
+    }
+
+    if (this.lane !== 2 && closestEnemyDistance !== Infinity) {
+      this.playerHazard.setAlpha(1)
+    } else {
+      this.playerHazard.setAlpha(0)
     }
   }
 

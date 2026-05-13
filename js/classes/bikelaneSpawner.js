@@ -30,6 +30,7 @@ class BikelaneSpawner {
     if (this.nextCooldown > distance) {
       return
     }
+    console.log("spawning enemy:", enemyIndex)
     const enemy = new Enemy(3, enemyIndex);
     scene.enemies.push(enemy);
     this.nextCooldown = distance + 1000

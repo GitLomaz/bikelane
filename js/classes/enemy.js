@@ -40,7 +40,7 @@ class Enemy extends Phaser.GameObjects.Container {
           this.y += 21
         break;
       case 3:
-        this.x = GAME_WIDTH + 100;
+        this.x = GAME_WIDTH + 500;
         this.y += 6
         this.speed = 0
         switch (type) {
