@@ -32,6 +32,6 @@ class BikelaneSpawner {
     }
     const enemy = new Enemy(3, enemyIndex);
     scene.enemies.push(enemy);
-    this.nextCooldown = distance + 1000
+    this.nextCooldown = distance + 1500
   }
 }
