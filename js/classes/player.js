@@ -179,7 +179,6 @@ class Player extends Phaser.GameObjects.Container {
       if (this.jumpedObjects > 0) {
         scene.score.hopBonus(this.jumpedObjects * 2500)
         this.jumpedObjects = 0
-        console.log('bonius!!')
       }
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
@@ -196,15 +195,13 @@ class Player extends Phaser.GameObjects.Container {
       
       // Left/Right movement (smooth)
       if (this.keys.left.isDown || this.keys.A.isDown) {
-        console.log('regen fast')
-        this.stamina = Math.min(100, this.stamina + 0.3 * deltaMultiplier)
+        this.stamina = Math.min(100, this.stamina + 0.15 * deltaMultiplier)
         setSpeedMod(.3)
         if (this.speedState !== 0) {
           playWithChain(this.sprite, "slowdownStart", ["slowdown"]);
           this.speedState = 0
         }
       } else if (this.keys.right.isDown || this.keys.D.isDown) {
-        console.log('consume fast')
         this.stamina = Math.max(0, this.stamina - 0.2 * deltaMultiplier)
         if (this.speedState !== 2 && this.stamina > 0) {
           setSpeedMod(1.7)
@@ -216,7 +213,6 @@ class Player extends Phaser.GameObjects.Container {
           setSpeedMod(1)
         }
       } else {
-        console.log('regen slow')
         this.stamina = Math.min(100, this.stamina + 0.1 * deltaMultiplier)
         if (this.speedState === 0) {
           playWithChain(this.sprite, "slowdownEnd", ["normal"]);
