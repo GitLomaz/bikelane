@@ -46,6 +46,7 @@ let gameScene = new Phaser.Class({
     this.load.spritesheet('start-btn', 'images/start-btn.png', { frameWidth: 120, frameHeight: 32 });
     this.load.spritesheet('submit-btn', 'images/submit-btn.png', { frameWidth: 144, frameHeight: 32 });
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
+    this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
 
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
@@ -68,6 +69,9 @@ let gameScene = new Phaser.Class({
     this.bikelaneSpawner = new BikelaneSpawner()
     this.carSpawner = new CarSpawner()
     distance = 0;
+    
+    // Add mute button in top right corner
+    this.muteButton = new MuteButton(1240, 40, "mute-btn");
   },
 
   update: function (time, delta) {

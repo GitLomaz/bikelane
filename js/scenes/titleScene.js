@@ -64,6 +64,7 @@ let titleScene = new Phaser.Class({
     this.load.spritesheet('start-btn', 'images/start-btn.png', { frameWidth: 120, frameHeight: 32 });
     this.load.spritesheet('submit-btn', 'images/submit-btn.png', { frameWidth: 144, frameHeight: 32 });
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
+    this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
     
     this.load.image('radarHazard', 'images/radar_hazard.png');
 
@@ -79,6 +80,11 @@ let titleScene = new Phaser.Class({
     this.load.bitmapFont("lightNumbers",  "fonts/font.png", "fonts/light.fnt");
     this.load.bitmapFont("normal",  "fonts/font.png", "fonts/normal.fnt");
     this.load.bitmapFont("large",  "fonts/font2.png", "fonts/large.fnt");
+
+    // Load audio files
+    this.load.audio('cycle1', 'audio/cycle01.wav');
+    this.load.audio('cycle2', 'audio/cycle02.wav');
+    this.load.audio('cycle3', 'audio/cycle03.wav');
   },
 
   create: function () {
@@ -88,7 +94,7 @@ let titleScene = new Phaser.Class({
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
     this.buildingScores = false
-    this.version = this.add.bitmapText(10, 10, "normal", "v1.5.0", 16).setDepth(5)
+    this.version = this.add.bitmapText(10, 10, "normal", "v1.6.0", 16).setDepth(5)
     this.scores = new Button(1140, 675, "highscores-btn", () => {
       if (!this.buildingScores) {
         buildHighScores()
@@ -97,6 +103,13 @@ let titleScene = new Phaser.Class({
     this.start = new Button(60, 675, "play-btn", () => {
       scene.scene.start("gameScene")
     })
+    
+    // Initialize sound manager
+    window.soundManager.init(this);
+    
+    // Add mute button in top right corner
+    this.muteButton = new MuteButton(1240, 40, "mute-btn");
+    
     if (submission) {
       buildHighScores()
     }

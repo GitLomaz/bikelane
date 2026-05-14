@@ -4,7 +4,7 @@ class LifeCounter {
     this.lifeImages = [];
 
     for (let i = 0; i < this.lives; i++) {
-      const lifeImage = scene.add.image(scene.cameras.main.width - 20 - i * 40, 20, 'life');
+      const lifeImage = scene.add.image(scene.cameras.main.width - 20 - i * 60, GAME_HEIGHT - 65, 'life');
       lifeImage.setOrigin(1, 0);
       lifeImage.setScrollFactor(0);
       lifeImage.setDepth(1000)
