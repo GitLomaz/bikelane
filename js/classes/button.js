@@ -24,7 +24,7 @@ class Button extends Phaser.GameObjects.Container {
     if (!scene.anims.exists(hoverInKey)) {
       scene.anims.create({
         key: hoverInKey,
-        frames: scene.anims.generateFrameNumbers(imageKey, { start: 1, end: 6 }),
+        frames: scene.anims.generateFrameNumbers(imageKey, { start: 1, end: 7 }),
         frameRate: 30,
         repeat: 0
       });
@@ -34,7 +34,7 @@ class Button extends Phaser.GameObjects.Container {
     if (!scene.anims.exists(hoverOutKey)) {
       scene.anims.create({
         key: hoverOutKey,
-        frames: scene.anims.generateFrameNumbers(imageKey, { start: 6, end: 1 }),
+        frames: scene.anims.generateFrameNumbers(imageKey, { start: 7, end: 1 }),
         frameRate: 30,
         repeat: 0
       });
