@@ -36,7 +36,7 @@ class Button extends Phaser.GameObjects.Container {
       scene.anims.create({
         key: hoverLoopKey,
         frames: scene.anims.generateFrameNumbers(imageKey, { start: 7, end: 12 }),
-        frameRate: 30,
+        frameRate: 5,
         repeat: -1,
         yoyo: true
       });
