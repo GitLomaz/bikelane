@@ -7,6 +7,47 @@ let titleScene = new Phaser.Class({
   },
 
   preload: function () {
+    // Create loading bar
+    const width = 360;
+    const height = 18;
+    const x = GAME_WIDTH / 2;
+    const y = GAME_HEIGHT / 2;
+    const padding = 2;
+    
+    // Colors from staminaBar
+    const borderColor = 0xaf3d45;
+    const fillColor = 0xf78b6d;
+    const emptyColor = 0x662a41;
+    
+    const progressBar = this.add.graphics();
+    const progressBox = this.add.graphics();
+    progressBox.fillStyle(emptyColor, 1);
+    progressBox.fillRect(x - width/2, y - height/2, width, height);
+    progressBox.lineStyle(2, borderColor, 1);
+    progressBox.strokeRect(x - width/2, y - height/2, width, height);
+    
+    // Loading text
+    const loadingText = this.add.text(x, y - 40, 'LOADING', {
+      fontFamily: 'Arial',
+      fontSize: '24px',
+      color: '#f78b6d'
+    }).setOrigin(0.5);
+    
+    // Update progress bar
+    this.load.on('progress', (value) => {
+      progressBar.clear();
+      const innerWidth = (width - padding * 2) * value;
+      progressBar.fillStyle(fillColor, 1);
+      progressBar.fillRect(x - width/2 + padding, y - height/2 + padding, innerWidth, height - padding * 2);
+    });
+    
+    // Clean up when complete
+    this.load.on('complete', () => {
+      progressBar.destroy();
+      progressBox.destroy();
+      loadingText.destroy();
+    });
+    
     this.load.image("player", "images/player.png");
     
     
@@ -81,10 +122,7 @@ let titleScene = new Phaser.Class({
     this.load.bitmapFont("normal",  "fonts/font.png", "fonts/normal.fnt");
     this.load.bitmapFont("large",  "fonts/font2.png", "fonts/large.fnt");
 
-    // Load audio files
-    this.load.audio('cycle1', 'audio/cycle01.wav');
-    this.load.audio('cycle2', 'audio/cycle02.wav');
-    this.load.audio('cycle3', 'audio/cycle03.wav');
+    this.load.audio('cycle3', 'audio/cycle03.mp3');
   },
 
   create: function () {
@@ -94,7 +132,7 @@ let titleScene = new Phaser.Class({
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
     this.buildingScores = false
-    this.version = this.add.bitmapText(10, 10, "normal", "v1.6.0", 16).setDepth(5)
+    this.version = this.add.bitmapText(10, 10, "normal", VERSION, 16).setDepth(5)
     this.scores = new Button(1140, 675, "highscores-btn", () => {
       if (!this.buildingScores) {
         buildHighScores()
