@@ -51,11 +51,19 @@ let titleScene = new Phaser.Class({
     this.load.image("tree11", "images/tree11.png");
     this.load.image("tree12", "images/tree12.png");
 
-
-    this.load.image("highscore", "images/highscore.png");
-    this.load.image("highscore-over", "images/highscore-over.png");
-    this.load.image("play", "images/play.png");
-    this.load.image("play-over", "images/play-over.png");
+    // Load button spritesheets
+    this.load.spritesheet('back-btn', 'images/back-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('continue-btn', 'images/continue-btn.png', { frameWidth: 192, frameHeight: 32 });
+    this.load.spritesheet('highscores-btn', 'images/highscores-btn.png', { frameWidth: 252, frameHeight: 32 });
+    this.load.spritesheet('leaderboard-btn', 'images/leaderboard-btn.png', { frameWidth: 264, frameHeight: 32 });
+    this.load.spritesheet('mainmenu-btn', 'images/mainmenu-btn.png', { frameWidth: 204, frameHeight: 32 });
+    this.load.spritesheet('no-btn', 'images/no-btn.png', { frameWidth: 48, frameHeight: 32 });
+    this.load.spritesheet('play-btn', 'images/play-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('quit-btn', 'images/quit-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('ride-btn', 'images/ride-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('start-btn', 'images/start-btn.png', { frameWidth: 120, frameHeight: 32 });
+    this.load.spritesheet('submit-btn', 'images/submit-btn.png', { frameWidth: 144, frameHeight: 32 });
+    this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
     
     this.load.image('radarHazard', 'images/radar_hazard.png');
 
@@ -81,12 +89,12 @@ let titleScene = new Phaser.Class({
     this.doodads = [];
     this.buildingScores = false
     this.version = this.add.bitmapText(10, 10, "normal", "v1.5.0", 16).setDepth(5)
-    this.scores = new Button(1140, 675, "highscores", () => {
+    this.scores = new Button(1140, 675, "highscores-btn", () => {
       if (!this.buildingScores) {
         buildHighScores()
       }
     })
-    this.start = new Button(60, 675, "play", () => {
+    this.start = new Button(60, 675, "play-btn", () => {
       scene.scene.start("gameScene")
     })
     if (submission) {

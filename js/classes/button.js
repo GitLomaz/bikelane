@@ -1,47 +1,111 @@
 class Button extends Phaser.GameObjects.Container {
-  constructor(x, y, text, callback) {
+  constructor(x, y, imageKey, callback) {
     super(scene, x, y);
     this.callback = callback;
-    this.label = text;
+    this.imageKey = imageKey;
+    this.isHovering = false;
+    this.animating = false;
 
-    this.fontKey = "normal";
-    this.fontSize = 32;
+    // Create sprite from the image key
+    this.sprite = scene.add.sprite(0, 0, imageKey);
+    this.sprite.setOrigin(0.5);
+    this.sprite.setFrame(0); // Start at inactive state
 
-    // Create bitmap text
-    this.textObj = scene.add.bitmapText(
-      0,
-      0,
-      this.fontKey,
-      this.label,
-      this.fontSize
-    );
+    this.add(this.sprite);
 
-    this.textObj.setOrigin(0.5);
+    // Set container size based on sprite
+    this.setSize(this.sprite.width, this.sprite.height);
 
-    this.add(this.textObj);
+    // Create animations for this button
+    const hoverInKey = `${imageKey}-hover-in`;
+    const hoverLoopKey = `${imageKey}-hover-loop`;
+    const hoverOutKey = `${imageKey}-hover-out`;
 
-    // Set container size based on text
-    this.setSize(this.textObj.width, this.textObj.height);
+    // Hover in animation (frames 1-6)
+    if (!scene.anims.exists(hoverInKey)) {
+      scene.anims.create({
+        key: hoverInKey,
+        frames: scene.anims.generateFrameNumbers(imageKey, { start: 1, end: 6 }),
+        frameRate: 30,
+        repeat: 0
+      });
+    }
 
-    // Make container interactive
-    this.setInteractive(
-      new Phaser.Geom.Rectangle(
-        -this.width / 2,
-        -this.height / 2,
-        this.width * 2,
-        this.height * 2
-      ),
-      Phaser.Geom.Rectangle.Contains,
-      { useHandCursor: true }
-    );
+    // Hover loop animation (frames 7-12, yoyo)
+    if (!scene.anims.exists(hoverLoopKey)) {
+      scene.anims.create({
+        key: hoverLoopKey,
+        frames: scene.anims.generateFrameNumbers(imageKey, { start: 7, end: 12 }),
+        frameRate: 30,
+        repeat: -1,
+        yoyo: true
+      });
+    }
+
+    // Hover out animation (frames 6-1, reverse)
+    if (!scene.anims.exists(hoverOutKey)) {
+      scene.anims.create({
+        key: hoverOutKey,
+        frames: scene.anims.generateFrameNumbers(imageKey, { start: 6, end: 1 }),
+        frameRate: 30,
+        repeat: 0
+      });
+    }
+
+    // Make the sprite itself interactive to avoid container coordinate issues
+    this.sprite.setInteractive({ useHandCursor: true });
+
+    // Pointer over event
+    this.sprite.on("pointerover", () => {
+      if (!this.isHovering && !this.animating) {
+        this.isHovering = true;
+        this.animating = true;
+        
+        // Stop any existing animations and listeners
+        this.sprite.stop();
+        this.sprite.off('animationcomplete');
+        
+        this.sprite.play(hoverInKey);
+        
+        // When hover-in completes, start the hover loop
+        this.sprite.once('animationcomplete', () => {
+          this.animating = false;
+          if (this.isHovering) {
+            this.sprite.play(hoverLoopKey);
+          }
+        });
+      }
+    });
+
+    // Pointer out event
+    this.sprite.on("pointerout", () => {
+      if (this.isHovering) {
+        this.isHovering = false;
+        this.animating = true;
+        
+        // Stop any existing animations and listeners
+        this.sprite.stop();
+        this.sprite.off('animationcomplete');
+        
+        this.sprite.play(hoverOutKey);
+        
+        // When hover-out completes, return to frame 0
+        this.sprite.once('animationcomplete', () => {
+          this.animating = false;
+          this.sprite.setFrame(0);
+        });
+      }
+    });
 
     // Click event
-    this.on("pointerdown", () => {
-      if (this.callback) { this.callback(); }
+    this.sprite.on("pointerdown", () => {
+      if (this.callback) { 
+        this.callback(); 
+      }
     });
 
     scene.add.existing(this);
     
-    this.setDepth(1000)
+    this.setDepth(1000);
   }
 }

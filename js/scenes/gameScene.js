@@ -33,12 +33,19 @@ let gameScene = new Phaser.Class({
     this.load.image("vinyl", "images/vinyl.png");
     this.load.image("vlc", "images/vlc.png");
 
-
-    this.load.image("submit", "images/submit.png");
-    this.load.image("submit-over", "images/submit-over.png");
-    this.load.image("back", "images/back.png");
-    this.load.image("back-over", "images/back-over.png");
-
+    // Load button spritesheets
+    this.load.spritesheet('back-btn', 'images/back-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('continue-btn', 'images/continue-btn.png', { frameWidth: 192, frameHeight: 32 });
+    this.load.spritesheet('highscores-btn', 'images/highscores-btn.png', { frameWidth: 252, frameHeight: 32 });
+    this.load.spritesheet('leaderboard-btn', 'images/leaderboard-btn.png', { frameWidth: 264, frameHeight: 32 });
+    this.load.spritesheet('mainmenu-btn', 'images/mainmenu-btn.png', { frameWidth: 204, frameHeight: 32 });
+    this.load.spritesheet('no-btn', 'images/no-btn.png', { frameWidth: 48, frameHeight: 32 });
+    this.load.spritesheet('play-btn', 'images/play-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('quit-btn', 'images/quit-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('ride-btn', 'images/ride-btn.png', { frameWidth: 96, frameHeight: 32 });
+    this.load.spritesheet('start-btn', 'images/start-btn.png', { frameWidth: 120, frameHeight: 32 });
+    this.load.spritesheet('submit-btn', 'images/submit-btn.png', { frameWidth: 144, frameHeight: 32 });
+    this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
 
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });

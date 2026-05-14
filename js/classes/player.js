@@ -105,7 +105,7 @@ class Player extends Phaser.GameObjects.Container {
     scene.events.on("update", () => this.update());
 
     this.playerBlip = scene.add.sprite(20, 40, 'radarBike').setScrollFactor(0).setDepth(1000)
-    this.playerAlert = scene.add.sprite(20, 40, 'radarAlert').setScrollFactor(0).setDepth(1000)
+    this.playerAlert = scene.add.sprite(20, 40, 'radarAlert').setScrollFactor(0).setDepth(1000).setFrame(2)
     this.playerHazard = scene.add.image(20, 10, 'radarHazard').setScrollFactor(0).setDepth(1000)
 
     this.sprite.on(
@@ -362,11 +362,11 @@ class Player extends Phaser.GameObjects.Container {
       }
     }).focus();
     scene.input.keyboard.clearCaptures()
-     new Button(GAME_WIDTH / 4 * 3, 400, "back", () => {
+     new Button(GAME_WIDTH / 4 * 3, 400, "back-btn", () => {
       scene.scene.stop('gameScene');
       scene.scene.start("titleScene")
     })
-    new Button(GAME_WIDTH / 4, 400, "submit", () => {
+    new Button(GAME_WIDTH / 4, 400, "submit-btn", () => {
         submission = btoa(
           '{ "game": "bikelane", "name": "' +
             animal +
