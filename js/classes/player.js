@@ -106,7 +106,9 @@ class Player extends Phaser.GameObjects.Container {
 
     this.playerBlip = scene.add.sprite(20, 60, 'radarBike').setScrollFactor(0).setDepth(1000).setScale(2)
     this.playerAlert = scene.add.sprite(20, 60, 'radarAlert').setScrollFactor(0).setDepth(1000).setFrame(2).setScale(2)
-    this.playerHazard = scene.add.image(20, 5, 'radarHazard').setScrollFactor(0).setDepth(1000).setScale(2)
+    // this.playerHazard = scene.add.image(20, 5, 'radarHazard').setScrollFactor(0).setDepth(1000).setScale(2)
+    this.playerHazard = scene.add.image(80, -170, 'radarHazard').setScrollFactor(0).setDepth(1000)
+    this.add(this.playerHazard)
     // this.radarBG = scene.add.rectangle(0, 0, 50, GAME_HEIGHT, 0x101930).setOrigin(0).setDepth(999)
 
     this.sprite.on(
