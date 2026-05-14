@@ -18,7 +18,6 @@ class Button extends Phaser.GameObjects.Container {
 
     // Create animations for this button
     const hoverInKey = `${imageKey}-hover-in`;
-    const hoverLoopKey = `${imageKey}-hover-loop`;
     const hoverOutKey = `${imageKey}-hover-out`;
 
     // Hover in animation (frames 1-6)
@@ -28,17 +27,6 @@ class Button extends Phaser.GameObjects.Container {
         frames: scene.anims.generateFrameNumbers(imageKey, { start: 1, end: 6 }),
         frameRate: 30,
         repeat: 0
-      });
-    }
-
-    // Hover loop animation (frames 7-12, yoyo)
-    if (!scene.anims.exists(hoverLoopKey)) {
-      scene.anims.create({
-        key: hoverLoopKey,
-        frames: scene.anims.generateFrameNumbers(imageKey, { start: 7, end: 12 }),
-        frameRate: 5,
-        repeat: -1,
-        yoyo: true
       });
     }
 
@@ -66,14 +54,6 @@ class Button extends Phaser.GameObjects.Container {
         this.sprite.off('animationcomplete');
         
         this.sprite.play(hoverInKey);
-        
-        // When hover-in completes, start the hover loop
-        this.sprite.once('animationcomplete', () => {
-          this.animating = false;
-          if (this.isHovering) {
-            this.sprite.play(hoverLoopKey);
-          }
-        });
       }
     });
 
