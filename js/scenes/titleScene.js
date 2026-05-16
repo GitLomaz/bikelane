@@ -107,15 +107,15 @@ let titleScene = new Phaser.Class({
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
     this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
     
-    this.load.image('radarHazard', 'images/radar_hazard.png');
+    this.load.spritesheet('radarHazard', 'images/radar_hazard.png', { frameWidth: 28, frameHeight: 28 });
 
     this.load.spritesheet('bench', 'images/bench.png', { frameWidth: 200, frameHeight: 100 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
 
     this.load.spritesheet('radarAlert', 'images/radar_alert.png', { frameWidth: 17, frameHeight: 32 });
-    this.load.spritesheet('radarBike', 'images/radar_bike.png', { frameWidth: 17, frameHeight: 32 });
-    this.load.spritesheet('radarCar', 'images/radar_car.png', { frameWidth: 17, frameHeight: 32 });
+    this.load.spritesheet('radarBike', 'images/radar_bike.png', { frameWidth: 28, frameHeight: 50 });
+    this.load.spritesheet('radarCar', 'images/radar_car.png', { frameWidth: 28, frameHeight: 50 });
 
     this.load.bitmapFont("darkNumbers", "fonts/font.png", "fonts/dark.fnt");
     this.load.bitmapFont("lightNumbers",  "fonts/font.png", "fonts/light.fnt");

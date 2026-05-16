@@ -104,12 +104,22 @@ class Player extends Phaser.GameObjects.Container {
     this.setupInput();
     scene.events.on("update", () => this.update());
 
-    this.playerBlip = scene.add.sprite(20, 60, 'radarBike').setScrollFactor(0).setDepth(1000).setScale(2)
-    this.playerAlert = scene.add.sprite(20, 60, 'radarAlert').setScrollFactor(0).setDepth(1000).setFrame(2).setScale(2)
-    // this.playerHazard = scene.add.image(20, 5, 'radarHazard').setScrollFactor(0).setDepth(1000).setScale(2)
-    this.playerHazard = scene.add.image(80, -170, 'radarHazard').setScrollFactor(0).setDepth(1000)
+    // Create radarHazard animation if it doesn't exist
+    if (!scene.anims.exists('radarHazardAnim')) {
+      scene.anims.create({
+        key: 'radarHazardAnim',
+        frames: scene.anims.generateFrameNumbers('radarHazard', { start: 0, end: -1 }),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
+
+    this.radarBG = scene.add.sprite(20, 120, 'radarBack').setScrollFactor(0).setDepth(1000)
+    this.playerBlip = scene.add.sprite(20, 60, 'radarBike').setScrollFactor(0).setDepth(1000)
+    this.playerAlert = scene.add.sprite(20, 60, 'radarAlert').setScrollFactor(0).setDepth(1000).setFrame(2)
+    this.playerHazard = scene.add.sprite(80, -160, 'radarHazard').setScrollFactor(0).setDepth(1000)
+    this.playerHazard.play('radarHazardAnim')
     this.add(this.playerHazard)
-    // this.radarBG = scene.add.rectangle(0, 0, 50, GAME_HEIGHT, 0x101930).setOrigin(0).setDepth(999)
 
     this.sprite.on(
       Phaser.Animations.Events.ANIMATION_COMPLETE,

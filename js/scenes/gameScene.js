@@ -48,6 +48,8 @@ let gameScene = new Phaser.Class({
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
     this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
 
+    this.load.spritesheet('radarBack', 'images/radar_back.png', { frameWidth: 28, frameHeight: 250 });
+    this.load.spritesheet('radarHazard', 'images/radar_hazard.png', { frameWidth: 28, frameHeight: 28 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
     this.load.image('life', 'images/life.png');

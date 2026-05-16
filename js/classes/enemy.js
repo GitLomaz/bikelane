@@ -36,7 +36,7 @@ class Enemy extends Phaser.GameObjects.Container {
           this.x = -GAME_WIDTH;
           this.speed = -18
           // this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
-          this.blip = scene.add.sprite(20, LANE_POSITIONS[lane].y, 'radarCar').setScrollFactor(0).setDepth(1000).setScale(2)
+          this.blip = scene.add.sprite(20, LANE_POSITIONS[lane].y, 'radarCar').setScrollFactor(0).setDepth(1000)
           this.y += 21
         break;
       case 3:
