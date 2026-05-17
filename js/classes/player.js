@@ -362,6 +362,7 @@ class Player extends Phaser.GameObjects.Container {
     this.playerBlip.destroy()
     this.playerAlert.destroy()
     this.playerHazard.destroy()
+    this.radarBG.destroy()
     scene.score.scoreText.setOrigin(.5)
     scene.tweens.add({
       targets: this,

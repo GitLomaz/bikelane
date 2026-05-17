@@ -15,6 +15,10 @@ class DistanceCounter extends Phaser.GameObjects.Container {
     
     const meters = globalStats.getCurrentDistanceMeters();
     
+    if (meters === 0) { // game over
+      return;
+    }
+    
     // Format distance with appropriate unit
     let displayText;
     if (meters >= 1000) {
