@@ -28,6 +28,7 @@ class Stats {
         this.shortestRide = data.shortestRide || Infinity;
         this.longestRide = data.longestRide || 0;
         this.totalDistance = data.totalDistance || 0;
+        this.totalRides = data.totalRides || 0;
       } catch (e) {
         console.error('Error loading stats:', e);
         this.initializeStats();
@@ -46,6 +47,7 @@ class Stats {
     this.shortestRide = Infinity;
     this.longestRide = 0;
     this.totalDistance = 0;
+    this.totalRides = 0;
   }
 
   saveStats() {
@@ -57,7 +59,8 @@ class Stats {
       preferredLane: this.preferredLane,
       shortestRide: this.shortestRide === Infinity ? 0 : this.shortestRide,
       longestRide: this.longestRide,
-      totalDistance: this.totalDistance
+      totalDistance: this.totalDistance,
+      totalRides: this.totalRides
     };
     localStorage.setItem('bikelane_stats', JSON.stringify(data));
   }
@@ -117,6 +120,7 @@ class Stats {
     
     this.totalTimeInOncoming += this.currentRide.timeInOncoming;
     this.totalDistance += rideDistance;
+    this.totalRides++;
     
     // Update shortest/longest ride (in meters)
     if (rideDistance > 0) {
@@ -203,7 +207,8 @@ class Stats {
       preferredLane: Stats.getLaneName(this.preferredLane),
       shortestRide: this.shortestRide === Infinity ? 0 : Math.floor(this.shortestRide),
       longestRide: Math.floor(this.longestRide),
-      totalDistance: Math.floor(this.totalDistance)
+      totalDistance: Math.floor(this.totalDistance),
+      totalRides: this.totalRides
     };
   }
 }

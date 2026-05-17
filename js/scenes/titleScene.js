@@ -238,6 +238,30 @@ let titleScene = new Phaser.Class({
           ease: 'Power2'
         });
       }
+      if (this.statItems) {
+        this.tweens.add({
+          targets: this.statItems,
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.muteButton) {
+        this.tweens.add({
+          targets: [this.muteButton],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.version) {
+        this.tweens.add({
+          targets: [this.version],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
     }
   },
   
@@ -287,6 +311,30 @@ let titleScene = new Phaser.Class({
       if (this.loading) {
         this.tweens.add({
           targets: this.loading,
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.statItems) {
+        this.tweens.add({
+          targets: this.statItems,
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.muteButton) {
+        this.tweens.add({
+          targets: [this.muteButton],
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.version) {
+        this.tweens.add({
+          targets: [this.version],
           alpha: 1,
           duration: 500,
           ease: 'Power2'
@@ -431,7 +479,7 @@ function buildStats() {
   
   // Create stat display items
   const startY = 100;
-  const lineHeight = 40;
+  const lineHeight = 34;
   let currentY = startY;
   
   // Title
@@ -441,6 +489,7 @@ function buildStats() {
   
   // Stat labels and values
   const statData = [
+    { label: "Total Rides", value: stats.totalRides },
     { label: "Total Distance", value: `${stats.totalDistance}m` },
     { label: "Longest Ride", value: `${stats.longestRide}m` },
     { label: "Shortest Ride", value: `${stats.shortestRide}m` },
@@ -532,6 +581,7 @@ function showResetConfirmation() {
     globalStats.shortestRide = Infinity;
     globalStats.longestRide = 0;
     globalStats.totalDistance = 0;
+    globalStats.totalRides = 0;
     globalStats.saveStats();
     
     // Clear the confirmation dialog
