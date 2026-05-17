@@ -113,7 +113,7 @@ let titleScene = new Phaser.Class({
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
     this.load.spritesheet('sidewalk', 'images/bg1.png', { frameWidth: 1280, frameHeight: 144 });
 
-    this.load.spritesheet('radarAlert', 'images/radar_alert.png', { frameWidth: 17, frameHeight: 32 });
+    this.load.spritesheet('radarAlert', 'images/radar_alert.png', { frameWidth: 84/3, frameHeight: 100 });
     this.load.spritesheet('radarBike', 'images/radar_bike.png', { frameWidth: 28, frameHeight: 50 });
     this.load.spritesheet('radarCar', 'images/radar_car.png', { frameWidth: 28, frameHeight: 50 });
 

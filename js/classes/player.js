@@ -114,7 +114,7 @@ class Player extends Phaser.GameObjects.Container {
       });
     }
 
-    this.radarBG = scene.add.sprite(20, 120, 'radarBack').setScrollFactor(0).setDepth(1000)
+    this.radarBG = scene.add.sprite(20, 60, 'radarBack').setScrollFactor(0).setDepth(1000).setScale(1, 2).setOrigin(.5, 0.25)
     this.playerBlip = scene.add.sprite(20, 60, 'radarBike').setScrollFactor(0).setDepth(1000)
     this.playerAlert = scene.add.sprite(20, 60, 'radarAlert').setScrollFactor(0).setDepth(1000).setFrame(2)
     this.playerHazard = scene.add.sprite(80, -160, 'radarHazard').setScrollFactor(0).setDepth(1000)
