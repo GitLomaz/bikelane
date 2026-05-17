@@ -14,3 +14,6 @@ let game = new Phaser.Game(config);
 
 // Prevent sound from pausing when game loses focus
 game.sound.pauseOnBlur = false;
+
+// Initialize global stats
+globalStats = new Stats();

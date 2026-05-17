@@ -152,7 +152,15 @@ class Player extends Phaser.GameObjects.Container {
     if (!this.alive) {
       return
     }
-    distance += bikeSpeed * speedMod * deltaMultiplier
+    const traveledThisFrame = bikeSpeed * speedMod * deltaMultiplier;
+    distance += traveledThisFrame;
+    
+    // Update stats
+    if (globalStats) {
+      globalStats.updateDistance(traveledThisFrame);
+      globalStats.updateLaneTime(this.lane, deltaMultiplier);
+    }
+    
     if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
       switch (this.speedState) {
         case 0:
@@ -193,6 +201,9 @@ class Player extends Phaser.GameObjects.Container {
       if (this.jumpedObjects > 0) {
         scene.score.hopBonus(this.jumpedObjects * 2500)
         this.jumpedObjects = 0
+        if (globalStats) {
+          globalStats.resetHopCombo();
+        }
       }
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
@@ -338,6 +349,12 @@ class Player extends Phaser.GameObjects.Container {
 
   die() {
     this.alive = false
+    
+    // Record stats for this ride
+    if (globalStats) {
+      globalStats.endRide(scene.score.score);
+    }
+    
     this.staminaBar.fadeOut()
     this.playerBlip.destroy()
     this.playerAlert.destroy()

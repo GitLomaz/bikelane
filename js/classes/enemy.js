@@ -148,6 +148,9 @@ class Enemy extends Phaser.GameObjects.Container {
         if (!this.jumped) {
           this.jumped = true;
           scene.player.jumpedObjects++;
+          if (globalStats) {
+            globalStats.recordObjectHop();
+          }
         }
       }
     }

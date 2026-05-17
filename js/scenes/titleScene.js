@@ -106,6 +106,8 @@ let titleScene = new Phaser.Class({
     this.load.spritesheet('submit-btn', 'images/submit-btn.png', { frameWidth: 144, frameHeight: 32 });
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
     this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
+    this.load.spritesheet('stats-btn', 'images/stats-btn.png', { frameWidth: 120, frameHeight: 32 });
+    this.load.spritesheet('reset-btn', 'images/reset-btn.png', { frameWidth: 120, frameHeight: 32 });
     
     this.load.spritesheet('radarHazard', 'images/radar_hazard.png', { frameWidth: 28, frameHeight: 28 });
 
@@ -132,15 +134,29 @@ let titleScene = new Phaser.Class({
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
     this.buildingScores = false
+    this.showingStats = false
     this.version = this.add.bitmapText(10, 10, "normal", VERSION, 16).setDepth(5)
     this.scores = new Button(1140, 675, "highscores-btn", () => {
-      if (!this.buildingScores) {
+      if (!this.buildingScores && !this.showingStats) {
         buildHighScores()
+      }
+    })
+    this.statsBtn = new Button(GAME_WIDTH / 2, 675, "stats-btn", () => {
+      if (!this.buildingScores && !this.showingStats) {
+        buildStats()
       }
     })
     this.start = new Button(60, 675, "play-btn", () => {
       scene.scene.start("gameScene")
     })
+    
+    // Back button (hidden by default, shown in high scores/stats states)
+    this.backButton = new Button(1140, 675, "back-btn", () => {
+      clearHighScores();
+      clearStats();
+      showNormalButtons();
+    });
+    this.backButton.setVisible(false);
     
     // Initialize sound manager
     window.soundManager.init(this);
@@ -190,6 +206,22 @@ let titleScene = new Phaser.Class({
           ease: 'Power2'
         });
       }
+      if (this.statsBtn) {
+        this.tweens.add({
+          targets: [this.statsBtn],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.backButton) {
+        this.tweens.add({
+          targets: [this.backButton],
+          alpha: 0,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
       if (this.scoreItems) {
         this.tweens.add({
           targets: this.scoreItems,
@@ -223,6 +255,22 @@ let titleScene = new Phaser.Class({
       if (this.scores) {
         this.tweens.add({
           targets: [this.scores],
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.statsBtn) {
+        this.tweens.add({
+          targets: [this.statsBtn],
+          alpha: 1,
+          duration: 500,
+          ease: 'Power2'
+        });
+      }
+      if (this.backButton) {
+        this.tweens.add({
+          targets: [this.backButton],
           alpha: 1,
           duration: 500,
           ease: 'Power2'
@@ -270,6 +318,16 @@ let titleScene = new Phaser.Class({
 
 function buildHighScores() {
   scene.buildingScores = true
+  
+  // Clear stats if they're showing
+  if (scene.showingStats) {
+    clearStats();
+  }
+  
+  // Update button visibility
+  hideNormalButtons();
+  scene.backButton.setVisible(true);
+  
   scene.loading = scene.add.bitmapText(
     700,
     200,
@@ -338,5 +396,181 @@ function buildHighScores() {
       }
     });
   }
+}
+
+function buildStats() {
+  scene.showingStats = true;
+  
+  // Clear high scores if they're showing
+  if (scene.scoreItems && scene.scoreItems.length > 0) {
+    scene.scoreItems.forEach((item) => {
+      item.destroy();
+    });
+    scene.scoreItems = [];
+  }
+  if (scene.loading) {
+    scene.loading.destroy();
+    scene.loading = null;
+  }
+  
+  // Update button visibility
+  hideNormalButtons();
+  scene.backButton.setVisible(true);
+  
+  // Clear existing stat items if any
+  if (scene.statItems) {
+    scene.statItems.forEach((item) => {
+      item.destroy();
+    });
+  } else {
+    scene.statItems = [];
+  }
+  
+  // Get formatted stats
+  const stats = globalStats.getFormattedStats();
+  
+  // Create stat display items
+  const startY = 100;
+  const lineHeight = 40;
+  let currentY = startY;
+  
+  // Title
+  const title = scene.add.bitmapText(640, currentY, "large", "STATS", 64).setOrigin(0.5).setDepth(4);
+  scene.statItems.push(title);
+  currentY += 80;
+  
+  // Stat labels and values
+  const statData = [
+    { label: "Total Distance", value: `${stats.totalDistance}m` },
+    { label: "Longest Ride", value: `${stats.longestRide}m` },
+    { label: "Shortest Ride", value: `${stats.shortestRide}m` },
+    { label: "Highest Score", value: displayNumber(stats.highestScore) },
+    { label: "Total Objects Hopped", value: stats.totalObjectsHopped },
+    { label: "Most Objects In A Row", value: stats.mostObjectsInRow },
+    { label: "Time In Oncoming Traffic", value: stats.totalTimeInOncoming },
+    { label: "Preferred Lane", value: stats.preferredLane }
+  ];
+  
+  statData.forEach((stat) => {
+    const label = scene.add.bitmapText(320, currentY, "normal", stat.label, 24).setOrigin(0, 0.5).setDepth(4);
+    const value = scene.add.bitmapText(960, currentY, "normal", stat.value.toString(), 24).setOrigin(1, 0.5).setDepth(4);
+    scene.statItems.push(label);
+    scene.statItems.push(value);
+    currentY += lineHeight;
+  });
+  
+  // Reset button (centered)
+  scene.statsResetButton = new Button(640, 675, "reset-btn", () => {
+    showResetConfirmation();
+  });
+  scene.statItems.push(scene.statsResetButton);
+}
+
+function clearStats() {
+  if (scene.statItems) {
+    scene.statItems.forEach((item) => {
+      item.destroy();
+    });
+    scene.statItems = [];
+  }
+  scene.showingStats = false;
+}
+
+function clearHighScores() {
+  if (scene.scoreItems) {
+    scene.scoreItems.forEach((item) => {
+      item.destroy();
+    });
+    scene.scoreItems = [];
+  }
+  if (scene.loading) {
+    scene.loading.destroy();
+    scene.loading = null;
+  }
+  scene.buildingScores = false;
+}
+
+function hideNormalButtons() {
+  if (scene.statsBtn) scene.statsBtn.setVisible(false);
+  if (scene.scores) scene.scores.setVisible(false);
+}
+
+function showNormalButtons() {
+  if (scene.statsBtn) scene.statsBtn.setVisible(true);
+  if (scene.scores) scene.scores.setVisible(true);
+  if (scene.backButton) scene.backButton.setVisible(false);
+}
+
+function showResetConfirmation() {
+  scene.resetting = true;
+  
+  // Create confirmation dialog
+  scene.resetItems = [];
+  
+  // Background overlay
+  const overlay = scene.add.graphics();
+  overlay.fillStyle(0x000000, 0.7);
+  overlay.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+  overlay.setDepth(100);
+  scene.resetItems.push(overlay);
+  
+  // Confirmation text
+  const confirmText = scene.add.bitmapText(640, 280, "normal", "Reset All Stats?", 48).setOrigin(0.5).setDepth(101);
+  scene.resetItems.push(confirmText);
+  
+  const warningText = scene.add.bitmapText(640, 340, "normal", "This cannot be undone!", 24).setOrigin(0.5).setDepth(101);
+  scene.resetItems.push(warningText);
+  
+  // Yes button
+  const yesButton = new Button(540, 420, "yes-btn", () => {
+    // Reset only the historical stats, not current ride
+    globalStats.totalObjectsHopped = 0;
+    globalStats.mostObjectsInRow = 0;
+    globalStats.highestScore = 0;
+    globalStats.totalTimeInOncoming = 0;
+    globalStats.preferredLane = 3;
+    globalStats.shortestRide = Infinity;
+    globalStats.longestRide = 0;
+    globalStats.totalDistance = 0;
+    globalStats.saveStats();
+    
+    // Clear the confirmation dialog
+    clearResetConfirmation();
+    
+    // Rebuild stats display to show zeros
+    clearStats();
+    buildStats();
+    
+    // Show a confirmation message
+    const resetMsg = scene.add.bitmapText(640, 360, "normal", "Stats Reset!", 32).setOrigin(0.5).setDepth(5);
+    scene.tweens.add({
+      targets: resetMsg,
+      alpha: 0,
+      duration: 2000,
+      delay: 1000,
+      onComplete: () => {
+        resetMsg.destroy();
+      }
+    });
+  });
+  yesButton.setDepth(101);
+  scene.resetItems.push(yesButton);
+  
+  // No button
+  const noButton = new Button(740, 420, "no-btn", () => {
+    clearResetConfirmation();
+  });
+  noButton.setDepth(101);
+  scene.resetItems.push(noButton);
+}
+
+function clearResetConfirmation() {
+  if (scene.resetItems) {
+    scene.resetItems.forEach((item) => {
+      item.destroy();
+    });
+    scene.resetItems = [];
+  }
+  scene.resetting = false;
 }
 

@@ -1,7 +1,8 @@
 const GAME_WIDTH = 1280;
 const GAME_HEIGHT = 720;
 const DEBUG = false;
-const VERSION = "v1.6.0";
+const VERSION = "v1.8.0";
+const PIXELS_TO_METERS = 1/60;
 const LANE_POSITIONS = {
   1: { y: 535, scale: 1, depth: 10 },
   2: { y: 570, scale: 1, depth: 20 },
@@ -11,8 +12,9 @@ let speedMod = 1;
 let bikeSpeed = 12;
 let distance = 0;
 let scene;
-let submission = false
+let submission = false;
 let animal = animals[Phaser.Math.Between(0, 191)].toUpperCase();
+let globalStats = null; // Global stats tracker
 
 // Global sound manager
 window.soundManager = {

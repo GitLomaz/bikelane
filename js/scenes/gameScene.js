@@ -59,8 +59,11 @@ let gameScene = new Phaser.Class({
     scene = this;
     // this.textures.get('normal').setFilter(Phaser.Textures.FilterMode.NEAREST);
     this.bg = new BG();
+    // Reset current ride stats when starting a new game
+    if (globalStats) globalStats.resetCurrentRide();
     this.player = new Player();
     this.score = new Score();
+    this.distanceCounter = new DistanceCounter();
 
     this.doodadSpawner = new DoodadSpawner()
     this.doodads = [];
@@ -84,6 +87,7 @@ let gameScene = new Phaser.Class({
     this.bikelaneSpawner.update(deltaMultiplier)
     this.carSpawner.update(deltaMultiplier)
     this.score.update(deltaMultiplier)
+    this.distanceCounter.update()
     this.doodadSpawner.update(deltaMultiplier)
     this.doodads.forEach((doodad) => {
       doodad.update(deltaMultiplier)
