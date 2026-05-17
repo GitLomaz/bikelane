@@ -199,7 +199,7 @@ class Player extends Phaser.GameObjects.Container {
 
     if (this.jumpState === 0) {
       if (this.jumpedObjects > 0) {
-        scene.score.hopBonus(this.jumpedObjects * 2500)
+        scene.score.hopBonus(this.jumpedObjects * 2500 + (250 * gameStats.currentRide.currentObjectsInRow - 1))
         this.jumpedObjects = 0
       }
       // Lane switching (up/down or w/s)
