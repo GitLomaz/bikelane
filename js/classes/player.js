@@ -201,14 +201,14 @@ class Player extends Phaser.GameObjects.Container {
       if (this.jumpedObjects > 0) {
         scene.score.hopBonus(this.jumpedObjects * 2500)
         this.jumpedObjects = 0
-        if (globalStats) {
-          globalStats.resetHopCombo();
-        }
       }
       // Lane switching (up/down or w/s)
       if (this.keys.up.isDown || this.keys.W.isDown) {
         if (this.lane > 1) {
           this.switchLane(this.lane - 1);
+        }
+        if (globalStats) {
+          globalStats.resetHopCombo();
         }
       }
       
@@ -324,6 +324,9 @@ class Player extends Phaser.GameObjects.Container {
     this.jumpedObjects = 0
     if (this.invincable) {
       return;
+    }
+    if (globalStats) {
+      globalStats.resetHopCombo();
     }
     this.invincable = true;
     this.lifeCounter.loseLife();
