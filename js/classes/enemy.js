@@ -35,7 +35,6 @@ class Enemy extends Phaser.GameObjects.Container {
       case 2:
           this.x = -GAME_WIDTH;
           this.speed = -18
-          // this.blip = new Blip(GAME_WIDTH - (lane * 30) - 10, LANE_POSITIONS[lane].y)
           this.blip = scene.add.sprite(20, LANE_POSITIONS[lane].y, 'radarCar').setScrollFactor(0).setDepth(1000)
           this.y += 21
         break;
@@ -99,6 +98,13 @@ class Enemy extends Phaser.GameObjects.Container {
       const outputMin = 0
       const outputMax = 720
       this.blip.y = outputMax - (( this.x + this.width / 2 - inputMin) * (outputMax - outputMin)) / (inputMax - inputMin)
+      if (this.blip.y > 500) {
+        this.blip.setAlpha(0)
+      } else if (this.blip.y < 400) {
+        this.blip.setAlpha(1)
+      } else {
+        this.blip.setAlpha((500 - this.blip.y) / 100)
+      }
     }
 
     
