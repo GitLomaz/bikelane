@@ -19,8 +19,6 @@ class Score extends Phaser.GameObjects.Container {
   }
 
   update(deltaMultiplier = 1) {
-    // ensure increments are integerized
-    console.log(bikeSpeed)
     let speedMod = 1
     switch (bikeSpeed) {
       case 9:
