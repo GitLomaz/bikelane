@@ -136,22 +136,22 @@ let titleScene = new Phaser.Class({
     this.buildingScores = false
     this.showingStats = false
     this.version = this.add.bitmapText(10, 10, "normal", VERSION, 16).setDepth(5)
-    this.scores = new Button(1140, 675, "highscores-btn", () => {
+    this.scores = new Button(1140, 680, "highscores-btn", () => {
       if (!this.buildingScores && !this.showingStats) {
         buildHighScores()
       }
     })
-    this.statsBtn = new Button(GAME_WIDTH / 2, 675, "stats-btn", () => {
+    this.statsBtn = new Button(GAME_WIDTH / 2, 680, "stats-btn", () => {
       if (!this.buildingScores && !this.showingStats) {
         buildStats()
       }
     })
-    this.start = new Button(60, 675, "play-btn", () => {
+    this.start = new Button(60, 680, "play-btn", () => {
       scene.scene.start("gameScene")
     })
     
     // Back button (hidden by default, shown in high scores/stats states)
-    this.backButton = new Button(1140, 675, "back-btn", () => {
+    this.backButton = new Button(1220, 680, "back-btn", () => {
       clearHighScores();
       clearStats();
       showNormalButtons();
@@ -509,7 +509,7 @@ function buildStats() {
   });
   
   // Reset button (centered)
-  scene.statsResetButton = new Button(640, 675, "reset-btn", () => {
+  scene.statsResetButton = new Button(640, 680, "reset-btn", () => {
     showResetConfirmation();
   });
   scene.statItems.push(scene.statsResetButton);
