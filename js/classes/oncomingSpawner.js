@@ -6,19 +6,26 @@ class OncomingSpawner {
   constructor() {
     this.obstacleFrequency = oncomingBaseFrequency
     this.nextObstacle = Random.between(oncomingBaseFrequency / 4, oncomingBaseFrequency)
-    this.lastSpawnedEnemy = null
   }
 
   update(deltaMultiplier = 1) {
     if (distance >= this.nextObstacle) {
-      // Check if there's enough clearance from the last spawned vehicle
+      // Check if there's enough clearance from ALL vehicles in this lane
       let canSpawn = true
-      if (this.lastSpawnedEnemy && this.lastSpawnedEnemy.active) {
-        const spawnX = -GAME_WIDTH
-        const prevLeftEdge = this.lastSpawnedEnemy.x - (this.lastSpawnedEnemy.width / 2) * Math.abs(this.lastSpawnedEnemy.scaleX)
-        // Need clearance of at least the previous vehicle's width
-        if (prevLeftEdge - spawnX < this.lastSpawnedEnemy.width) {
-          canSpawn = false
+      const spawnX = -GAME_WIDTH
+      const minSpacing = 3 // 3 car lengths
+      
+      // Check all active enemies in lane 2
+      for (let enemy of scene.enemies) {
+        if (enemy.active && enemy.lane === 2) {
+          const enemyLeftEdge = enemy.x - (enemy.width / 2) * Math.abs(enemy.scaleX)
+          const clearance = enemyLeftEdge - spawnX
+          
+          // Need clearance of at least 3 car lengths
+          if (clearance < enemy.width * minSpacing) {
+            canSpawn = false
+            break
+          }
         }
       }
       
@@ -39,6 +46,5 @@ class OncomingSpawner {
   spawn() {
     const enemy = new Enemy(2); // Lane 2: oncoming traffic
     scene.enemies.push(enemy);
-    this.lastSpawnedEnemy = enemy;
   }
 }
