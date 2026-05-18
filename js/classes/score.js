@@ -20,7 +20,21 @@ class Score extends Phaser.GameObjects.Container {
 
   update(deltaMultiplier = 1) {
     // ensure increments are integerized
-    const inc = Math.floor(bikeSpeed * deltaMultiplier)
+    console.log(bikeSpeed)
+    let speedMod = 1
+    switch (bikeSpeed) {
+      case 9:
+        speedMod = 4
+        break;
+      case 12:
+        speedMod =  12
+        break;
+      case 15:
+        speedMod =  20
+        break;
+    }
+
+    const inc = Math.floor(speedMod * deltaMultiplier)
 
     this.scoreText.setText(displayNumber(Math.floor(this.score)))
     if (!scene.player.alive) {

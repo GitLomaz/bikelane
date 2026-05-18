@@ -191,8 +191,8 @@ class Stats {
   static getLaneName(lane) {
     switch(lane) {
       case 1: return "Oncoming Traffic";
-      case 2: return "Bike Lane";
-      case 3: return "Sidewalk";
+      case 2: return "With Traffic";
+      case 3: return "Bike Lane";
       default: return "Unknown";
     }
   }
