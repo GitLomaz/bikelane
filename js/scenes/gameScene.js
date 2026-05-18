@@ -72,7 +72,8 @@ let gameScene = new Phaser.Class({
     this.enemies = [];
 
     this.bikelaneSpawner = new BikelaneSpawner()
-    this.carSpawner = new CarSpawner()
+    this.withTrafficSpawner = new WithTrafficSpawner()
+    this.oncomingSpawner = new OncomingSpawner()
     distance = 0;
     
     // Add mute button in top right corner
@@ -85,7 +86,8 @@ let gameScene = new Phaser.Class({
     const deltaMultiplier = delta / 16.67;
     this.bg.update(deltaMultiplier)
     this.bikelaneSpawner.update(deltaMultiplier)
-    this.carSpawner.update(deltaMultiplier)
+    this.withTrafficSpawner.update(deltaMultiplier)
+    this.oncomingSpawner.update(deltaMultiplier)
     this.score.update(deltaMultiplier)
     this.distanceCounter.update()
     this.doodadSpawner.update(deltaMultiplier)
