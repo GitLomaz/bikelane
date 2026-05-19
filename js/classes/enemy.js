@@ -105,6 +105,19 @@ class Enemy extends Phaser.GameObjects.Container {
       } else {
         this.blip.setAlpha((500 - this.blip.y) / 100)
       }
+      switch (scene.player.lane) {
+        case 1:
+          this.blip.x = 20 + 7
+          break;
+        case 2:
+          this.blip.x = 20
+          break;
+        case 3:
+          this.blip.x = 20 - 7
+          break;
+        default:
+          break;
+      }
     }
 
     

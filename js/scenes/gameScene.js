@@ -6,11 +6,7 @@ let gameScene = new Phaser.Class({
     });
   },
 
-  preload: function () {
-    this.load.image("player", "images/player.png");
-    this.load.image("blip", "images/blip.png");
-    
-    
+  preload: function () {  
     this.load.image("bg", "images/bg.png");
     this.load.image("bg2", "images/bg2.png");
     this.load.image("bg3", "images/bg3.png");
