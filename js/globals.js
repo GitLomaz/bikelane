@@ -1,7 +1,7 @@
 const GAME_WIDTH = 1280;
 const GAME_HEIGHT = 720;
 const DEBUG = false;
-const VERSION = "v1.9.0";
+const VERSION = "v1.10.0";
 const PIXELS_TO_METERS = 1/60;
 const LANE_POSITIONS = {
   1: { y: 535, scale: 1, depth: 10 },

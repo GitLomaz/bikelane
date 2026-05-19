@@ -161,23 +161,7 @@ class Player extends Phaser.GameObjects.Container {
       globalStats.updateDistance(traveledThisFrame);
       globalStats.updateLaneTime(this.lane, deltaMultiplier);
     }
-    
-    if (this.keys.space.isDown && this.jumpState === 0 && this.jumpFrames < 4 * 4) {
-      switch (this.speedState) {
-        case 0:
-          playWithChain(this.sprite, "hopOne", ['slowdownStart', 'slowdown']);
-          break;        
-        case 1:
-          playWithChain(this.sprite, "hopOne", ['normal']);
-          break;
-        case 2:
-          playWithChain(this.sprite, "hopOne", ['sprintStart', 'sprint']);
-          break;
-        default:
-          break;
-      }
-      this.jumpFrames += deltaMultiplier
-    } else if (this.jumpFrames >= 4 * 4 && this.jumpState === 0) {
+    if (this.keys.space.isDown) {
       switch (this.speedState) {
         case 0:
           playWithChain(this.sprite, "hopTwoShort", ['slowdownStart', 'slowdown']);
