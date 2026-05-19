@@ -63,6 +63,12 @@ class Stats {
       totalRides: this.totalRides
     };
     localStorage.setItem('bikelane_stats', JSON.stringify(data));
+    $.ajax({
+      url: "https://scores.lomazgames.com/statistic",
+      type: "POST",
+      data: { game: 'bikelane', data: data },
+      dataType: "json",
+    });
   }
 
   // Called when player hops over an object
