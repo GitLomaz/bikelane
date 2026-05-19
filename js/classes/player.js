@@ -200,7 +200,7 @@ class Player extends Phaser.GameObjects.Container {
 
     if (this.jumpState === 0) {
       if (this.jumpedObjects > 0) {
-        scene.score.hopBonus(this.jumpedObjects * 2500 + (250 * (globalStats.currentRide.currentObjectsInRow - 1)));
+        scene.score.hopBonus(this.hopScore(globalStats.currentRide.currentObjectsInRow));
         this.jumpedObjects = 0
       }
       // Lane switching (up/down or w/s)
@@ -414,4 +414,29 @@ class Player extends Phaser.GameObjects.Container {
         scene.scene.start("titleScene")
     })
   }
+
+  hopScore(n) {
+    if (n < 1) return 2500;
+    const values = [
+      2500, // 1
+      2750, // 2
+      3000, // 3
+      3200, // 4
+      3400, // 5
+      3600, // 6
+      3800, // 7
+      4000, // 8
+      4100, // 9
+      4200, // 10
+      4300, // 11
+      4400, // 12
+      4500, // 13
+      4600, // 14
+      4700, // 15
+      4800, // 16
+      4900, // 17
+      5000  // 18
+    ];
+    return values[n - 1] ?? 5000;
+}
 }
