@@ -3,17 +3,18 @@ let config = {
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
   scene: [titleScene, gameScene],
-  // scene: [gameScene],
   audio: {
     disableWebAudio: false,
     noAudio: false
   }
 };
 
-let game = new Phaser.Game(config);
+let game
 
-// Prevent sound from pausing when game loses focus
-game.sound.pauseOnBlur = false;
+window.addEventListener('DOMContentLoaded', () => {
+    game = new Phaser.Game(config);
+    game.sound.pauseOnBlur = false;
+    window.game = game;
+});
 
-// Initialize global stats
 globalStats = new Stats();

@@ -105,12 +105,12 @@ class Score extends Phaser.GameObjects.Container {
     }
   }
 
-  hopBonus(value) {
+  bonus(value) {
     if (value === 0) {
       return
     }
     this.score += value
-    const floatText = scene.add.bitmapText(-360, 380, "lightNumbers", value, 32); 
+    const floatText = scene.add.bitmapText(-360, scene.player.y - 220, "lightNumbers", value, 32); 
     this.add(floatText)
     scene.tweens.add({
       targets: floatText,

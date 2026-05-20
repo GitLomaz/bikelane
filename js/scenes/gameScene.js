@@ -44,6 +44,8 @@ let gameScene = new Phaser.Class({
     this.load.spritesheet('yes-btn', 'images/yes-btn.png', { frameWidth: 72, frameHeight: 32 });
     this.load.spritesheet('mute-btn', 'images/mute-btn.png', { frameWidth: 32, frameHeight: 24 });
 
+    this.load.spritesheet('powerup-1', 'images/powerup1.png', { frameWidth: 32, frameHeight: 24 });
+
     this.load.spritesheet('radarBack', 'images/radar_back.png', { frameWidth: 28, frameHeight: 250 });
     this.load.spritesheet('radarHazard', 'images/radar_hazard.png', { frameWidth: 28, frameHeight: 28 });
     this.load.spritesheet('bike', 'images/bike-new.png', { frameWidth: 140, frameHeight: 200 });
@@ -67,6 +69,10 @@ let gameScene = new Phaser.Class({
     // Enemy spawning system
     this.enemies = [];
 
+    
+    this.powerupSpawner = new PowerupSpawner()
+    this.powerups = [];
+
     this.bikelaneSpawner = new BikelaneSpawner()
     this.withTrafficSpawner = new WithTrafficSpawner()
     this.oncomingSpawner = new OncomingSpawner()
@@ -84,6 +90,7 @@ let gameScene = new Phaser.Class({
     this.bikelaneSpawner.update(deltaMultiplier)
     this.withTrafficSpawner.update(deltaMultiplier)
     this.oncomingSpawner.update(deltaMultiplier)
+    this.powerupSpawner.update(deltaMultiplier)
     this.score.update(deltaMultiplier)
     this.distanceCounter.update()
     this.doodadSpawner.update(deltaMultiplier)
@@ -98,6 +105,15 @@ let gameScene = new Phaser.Class({
       } else {
         // Remove destroyed enemies from the list
         this.enemies.splice(index, 1);
+      }
+    });
+    // Update all powerups
+    this.powerups.forEach((powerup, index) => {
+      if (powerup.active) {
+        powerup.update(deltaMultiplier);
+      } else {
+        // Remove collected or expired powerups from the list
+        this.powerups.splice(index, 1);
       }
     });
   },
